@@ -14,7 +14,7 @@ const int WIDTH = 800;
 const int HEIGHT = 500;
 const int CELLSIZE = 6;
 const int FULLSCREEN_CELLSIZE = 8;
-const int TICK_INTERVAL = 5;
+const int TICK_INTERVAL = 6;
 const int FRAMERATE = 60;
 
 void gameOfLife::setup() {
@@ -59,24 +59,24 @@ void gameOfLife::update() {
 void gameOfLife::tick() {
 	// get active neighbors for each cell
 	for (int i=0; i<cols; i++) {
-		for (int j=0; j<rows; j++) {
-      cell *thisCell = &grid[i][j];
-			thisCell->activeNeighbors = getNumActiveNeighbors(i, j);
-      bool currState = thisCell->currState;
-      int activeNeighbors = thisCell->activeNeighbors;
-			
-			if (currState == true && activeNeighbors < 2) {
-        thisCell->nextState = false;
-      } else if (currState == true && activeNeighbors > 3) {
-        thisCell->nextState = false;
-      } else if (currState == true && activeNeighbors > 1 && activeNeighbors < 4) {
-        thisCell->nextState = true;
-        thisCell->color = ofColor::black;
-      } else if (currState == false && activeNeighbors == 3) {
-        thisCell->nextState = true;
-        thisCell->color = highlight ? ofColor::green : ofColor::black;
-      }
-		}
+        for (int j=0; j<rows; j++) {
+            cell *thisCell = &grid[i][j];
+            thisCell->activeNeighbors = getNumActiveNeighbors(i, j);
+            bool currState = thisCell->currState;
+            int activeNeighbors = thisCell->activeNeighbors;
+                
+            if (currState == true && activeNeighbors < 2) {
+                thisCell->nextState = false;
+            } else if (currState == true && activeNeighbors > 3) {
+                thisCell->nextState = false;
+            } else if (currState == true && activeNeighbors > 1 && activeNeighbors < 4) {
+                thisCell->nextState = true;
+                thisCell->color = ofColor::black;
+            } else if (currState == false && activeNeighbors == 3) {
+                thisCell->nextState = true;
+                thisCell->color = highlight ? ofColor::green : ofColor::black;
+            }
+        }
 	}
 	makeNextStateCurrent();
 }
@@ -93,11 +93,11 @@ void gameOfLife::draw() {
 	for (int i=0; i<cols; i++) {
 		for (int j=0; j<rows; j++) {
       cell thisCell = grid[i][j];
-			ofSetColor(150, 150, 150);
+			ofSetColor(200, 200, 200);
 			ofNoFill();
 			ofRect(i*cellWidth, j*cellHeight, cellWidth, cellHeight);
       if (thisCell.currState == true) {
-				ofSetColor(thisCell.color.r, thisCell.color.g, thisCell.color.b);
+				ofSetColor(thisCell.color.r, thisCell.color.g, thisCell.color.b, 100);
 				ofFill();				
 				ofCircle(i*cellWidth, j*cellHeight, cellHeight / 2);
 				ofNoFill();

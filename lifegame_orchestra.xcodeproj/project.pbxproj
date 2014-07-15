@@ -24,6 +24,7 @@
 		C4782ECC372420ACE0615B74 /* OscPrintReceivedElements.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BC8881B3C8C0A1C45F042E7A /* OscPrintReceivedElements.cpp */; };
 		C557AC471975063000E0DC54 /* gameOfLife.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C557AC451975063000E0DC54 /* gameOfLife.cpp */; };
 		C557AC4A1975063900E0DC54 /* patterns.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C557AC481975063900E0DC54 /* patterns.cpp */; };
+		C557AC4F197567B900E0DC54 /* detection.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C557AC4D197567B900E0DC54 /* detection.cpp */; };
 		E4328149138ABC9F0047C5CB /* openFrameworksDebug.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E4328148138ABC890047C5CB /* openFrameworksDebug.a */; };
 		E45BE97B0E8CC7DD009D7055 /* AGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E45BE9710E8CC7DD009D7055 /* AGL.framework */; };
 		E45BE97C0E8CC7DD009D7055 /* ApplicationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E45BE9720E8CC7DD009D7055 /* ApplicationServices.framework */; };
@@ -106,6 +107,8 @@
 		C557AC461975063000E0DC54 /* gameOfLife.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gameOfLife.h; sourceTree = "<group>"; };
 		C557AC481975063900E0DC54 /* patterns.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = patterns.cpp; sourceTree = "<group>"; };
 		C557AC491975063900E0DC54 /* patterns.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = patterns.h; sourceTree = "<group>"; };
+		C557AC4D197567B900E0DC54 /* detection.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = detection.cpp; sourceTree = "<group>"; };
+		C557AC4E197567B900E0DC54 /* detection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = detection.h; sourceTree = "<group>"; };
 		C58862C6D212C8E8A83810F4 /* ofxOscMessage.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxOscMessage.h; path = ../../../addons/ofxOsc/src/ofxOscMessage.h; sourceTree = SOURCE_ROOT; };
 		C6937888E126BADC8777423B /* OscTypes.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = OscTypes.h; path = ../../../addons/ofxOsc/libs/oscpack/src/osc/OscTypes.h; sourceTree = SOURCE_ROOT; };
 		D9BFFBBF4CC43DEE890B3C3E /* OscTypes.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = OscTypes.cpp; path = ../../../addons/ofxOsc/libs/oscpack/src/osc/OscTypes.cpp; sourceTree = SOURCE_ROOT; };
@@ -318,6 +321,8 @@
 				C557AC451975063000E0DC54 /* gameOfLife.cpp */,
 				C557AC461975063000E0DC54 /* gameOfLife.h */,
 				E4B69E1D0A3A1BDC003C02F2 /* main.cpp */,
+				C557AC4D197567B900E0DC54 /* detection.cpp */,
+				C557AC4E197567B900E0DC54 /* detection.h */,
 			);
 			path = src;
 			sourceTree = SOURCE_ROOT;
@@ -457,6 +462,7 @@
 				62545D179C94265CA1389D4A /* OscOutboundPacketStream.cpp in Sources */,
 				C4782ECC372420ACE0615B74 /* OscPrintReceivedElements.cpp in Sources */,
 				0546D1A38E13BD319CC9755B /* OscReceivedElements.cpp in Sources */,
+				C557AC4F197567B900E0DC54 /* detection.cpp in Sources */,
 				879A251454401BC0B6E4F238 /* OscTypes.cpp in Sources */,
 				C557AC471975063000E0DC54 /* gameOfLife.cpp in Sources */,
 			);
