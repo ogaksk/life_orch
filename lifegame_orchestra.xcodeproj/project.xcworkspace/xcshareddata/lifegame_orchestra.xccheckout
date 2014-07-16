@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>7591EBB2-0655-424A-8E99-F415C1AE3473</string>
+	<key>IDESourceControlProjectName</key>
+	<string>lifegame_orchestra</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>F872CB1B-42F9-4D77-89A0-744225D84766</key>
+		<string>https://github.com/ogaksk/life_orch.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>lifegame_orchestra.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>F872CB1B-42F9-4D77-89A0-744225D84766</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/ogaksk/life_orch.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>F872CB1B-42F9-4D77-89A0-744225D84766</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>F872CB1B-42F9-4D77-89A0-744225D84766</string>
+			<key>IDESourceControlWCCName</key>
+			<string>lifegame_orchestra</string>
+		</dict>
+	</array>
+</dict>
+</plist>

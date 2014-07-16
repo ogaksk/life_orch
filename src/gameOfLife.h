@@ -28,6 +28,7 @@ public:
   void update();
   void draw();
   void clear();
+  void patternMapping();
   void pause();
   
   void keyPressed(int key);

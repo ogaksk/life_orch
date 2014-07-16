@@ -19,14 +19,14 @@ const int TICK_INTERVAL = 6;
 const int FRAMERATE = 60;
 
 void gameOfLife::setup() {
-  fullScreen = false;
-  highlight = false;
-	active = false;
+    fullScreen = false;
+    highlight = false;
+    active = false;
   
-  ofSetFullscreen(false);
-	ofSetWindowShape(WIDTH, HEIGHT);
+    ofSetFullscreen(false);
+    ofSetWindowShape(WIDTH, HEIGHT);
   
-  init(WIDTH, HEIGHT, CELLSIZE);
+    init(WIDTH, HEIGHT, CELLSIZE);
   
 	ofBackground(ofColor::white);
 	ofSetBackgroundAuto(true);
@@ -49,12 +49,13 @@ void gameOfLife::init(int width, int height, int cellSize) {
   
 	// set up grid
 	clear();
+    patternMapping();
 }
 
 void gameOfLife::update() {
   if (ofGetFrameNum() % TICK_INTERVAL == 0 && active) {
 		tick();
-        patternDetect::detection(grid);
+         // patternDetect::detection(grid);
   }
 }
 
@@ -120,6 +121,19 @@ void gameOfLife::clear() {
 		}
 	}
 }
+
+/**
+ * 検出パターンを初期化するメソッド
+*/
+ 
+void gameOfLife::patternMapping() {
+    int g1[] = {1, 3};
+    int p1[] = {1, 1, 1};
+    string n1 = "aaa";
+    patternDetect *detect1 = new patternDetect(n1, g1, p1);
+    cout << detect1->mPattern.name << endl;
+}
+
 
 /**
  * Ensure it is a valid col/row combo (on grid) and
