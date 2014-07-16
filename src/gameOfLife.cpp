@@ -9,6 +9,7 @@
 
 #include "gameOfLife.h"
 #include "patterns.h"
+#include "patternDetect.h"
 
 const int WIDTH = 800;
 const int HEIGHT = 500;
@@ -53,6 +54,7 @@ void gameOfLife::init(int width, int height, int cellSize) {
 void gameOfLife::update() {
   if (ofGetFrameNum() % TICK_INTERVAL == 0 && active) {
 		tick();
+        patternDetect::detection(grid);
   }
 }
 
