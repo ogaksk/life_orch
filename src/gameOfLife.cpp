@@ -17,6 +17,7 @@ const int CELLSIZE = 6;
 const int FULLSCREEN_CELLSIZE = 8;
 const int TICK_INTERVAL = 6;
 const int FRAMERATE = 60;
+patternDetect *detect1;
 
 void gameOfLife::setup() {
     fullScreen = false;
@@ -55,7 +56,7 @@ void gameOfLife::init(int width, int height, int cellSize) {
 void gameOfLife::update() {
   if (ofGetFrameNum() % TICK_INTERVAL == 0 && active) {
 		tick();
-         // patternDetect::detection(grid);
+      cout << detect1->mPattern.name << endl;
   }
 }
 
@@ -102,7 +103,7 @@ void gameOfLife::draw() {
       if (thisCell.currState == true) {
 				ofSetColor(thisCell.color.r, thisCell.color.g, thisCell.color.b, 100);
 				ofFill();				
-				ofCircle(i*cellWidth, j*cellHeight, cellHeight / 2);
+				ofRect(i*cellWidth, j*cellHeight, cellWidth, cellHeight);
 				ofNoFill();
 			}
 		}
@@ -130,8 +131,8 @@ void gameOfLife::patternMapping() {
     int g1[] = {1, 3};
     int p1[] = {2, 1, 1};
     string n1 = "aaa";
-    patternDetect *detect1 = new patternDetect(n1, g1, p1);
-    cout << detect1->mPattern.name << endl;
+    detect1 = new patternDetect(n1, g1, p1);
+//    cout << detect1->mPattern.name << endl;
 }
 
 
