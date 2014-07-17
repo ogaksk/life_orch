@@ -14,11 +14,11 @@
 struct matchPattern {
     string name;
     int patternGrid[2]; // ポインタ指定するとこけなかった 謎
-	int pattern[3] = {0, 0, 0};
+    int *pattern;
 };
 
 struct response {
-    string patternNname;
+    string patternName;
 	int exist[2];
 };
 
@@ -28,11 +28,14 @@ public:
     response res;
     static void detection(cell **grid);
     
-    patternDetect(string paramsName, int paramsGrid[] ,int paramspattern[]) {
-        cout << paramspattern << endl;
+    patternDetect(string paramsName, int paramsGrid[] ,int paramsPattern[]) {
+        cout << paramsPattern[2] << endl;
         this -> mPattern.name = paramsName;
         this -> mPattern.patternGrid[0] = paramsGrid[0];
         this -> mPattern.patternGrid[1] = paramsGrid[1];
-//        this -> mPattern.pattern = paramspattern;
+        this -> mPattern.pattern = new int[(paramsGrid[0] * paramsGrid[1])];
+        for(int i = 0; i < (paramsGrid[0] * paramsGrid[1]); i++) {
+            this -> mPattern.pattern[i] = paramsPattern[i];
+        }
     }
 };

@@ -128,7 +128,7 @@ void gameOfLife::clear() {
  
 void gameOfLife::patternMapping() {
     int g1[] = {1, 3};
-    int p1[] = {1, 1, 1};
+    int p1[] = {2, 1, 1};
     string n1 = "aaa";
     patternDetect *detect1 = new patternDetect(n1, g1, p1);
     cout << detect1->mPattern.name << endl;
