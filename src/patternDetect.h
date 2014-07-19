@@ -26,7 +26,7 @@ class patternDetect {
 public:
     matchPattern mPattern;
     response res;
-    static void detection(cell **grid);
+    void detection(cell **grid);
     
     patternDetect(string paramsName, int paramsGrid[] ,int paramsPattern[]) {
         cout << paramsPattern[2] << endl;

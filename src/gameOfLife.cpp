@@ -54,10 +54,10 @@ void gameOfLife::init(int width, int height, int cellSize) {
 }
 
 void gameOfLife::update() {
-  if (ofGetFrameNum() % TICK_INTERVAL == 0 && active) {
-		tick();
-      cout << detect1->mPattern.name << endl;
-  }
+    if (ofGetFrameNum() % TICK_INTERVAL == 0 && active) {
+        tick();
+        detect1->detection(grid);
+    }
 }
 
 void gameOfLife::tick() {
