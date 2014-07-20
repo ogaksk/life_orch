@@ -56,35 +56,14 @@ void gameOfLife::init(int width, int height, int cellSize) {
 void gameOfLife::update() {
     if (ofGetFrameNum() % TICK_INTERVAL == 0 && active) {
         tick();
-        
-//        /*パターン検出インスタンスの実行メソッド*/
-//        detect1->detection(grid, rows, cols);
-    
-        detect1->testMethod(grid, rows, cols);
-        
-//        for ( int i = 0; i < 100; i++ ) {  // オフセットを気にしている
-//            for ( int j = 0; j < 100; j++ ) {  // オフセットを気にしつつ二次配列をぶん回す
-//                cout << grid[i][j].currState << endl;
-//            }
-//        }
-        
-        
-        
+        /*パターン検出インスタンスの実行メソッド*/
+        detect1->detection(grid, rows, cols);
     }
 }
 
 void gameOfLife::tick() {
 	// get active neighbors for each cell
     
-    
-//    for ( int i = 0; i < 100; i++ ) {  // オフセットを気にしている
-//        for ( int j = 0; j < 100; j++ ) {  // オフセットを気にしつつ二次配列をぶん回す
-//            cell *thisCell = &grid[i][j];
-//            bool currState = thisCell->currState;
-//            cout << currState << endl;
-//        }
-//    }
-
 	for (int i=0; i<cols; i++) {
         for (int j=0; j<rows; j++) {
             cell *thisCell = &grid[i][j];
@@ -102,9 +81,6 @@ void gameOfLife::tick() {
                 thisCell->nextState = true;
                 thisCell->color = highlight ? ofColor::green : ofColor::black;
             }
-            
-
-//            cout << thisCell->currState << endl;
         }
 	}
 	makeNextStateCurrent();

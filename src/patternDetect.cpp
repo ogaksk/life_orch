@@ -17,25 +17,13 @@ resPattern patternDetect::detection(cell **grid, int rows, int cols) {
     int patternRow_ = this->mPattern.patternGrid[1];
     int patternCol_ = this->mPattern.patternGrid[0];
 
-    for ( int i = 0; i <= rows - patternRow_; i++ ) {  // オフセットを気にしている
-        for ( int j = 0; j <= cols - patternCol_; j++ ) {  // オフセットを気にしつつ二次配列をぶん回す
+    for ( int i = 0; i <= cols - patternCol_; i++ ) {  // オフセットを気にしている
+        for ( int j = 0; j <= rows - patternRow_; j++ ) {  // オフセットを気にしつつ二次配列をぶん回す
             int matchFlag_ = 1; // マッチフラッグは最初は1
             cell *thisCell = &grid[i][j];
             
-            cout << "patCell----" << &grid[i][j] << endl;
-//            if (thisCell->currState == true) {
-//                cout << "patDec----true!!!" << endl;
-//                cout << "i=" << i << ", j=" << j<< endl;
-//            }
-      
-            for ( int k = 0; k < patternRow_; k++ ) {  // パターン分の二次配列をぶん回す
-                for ( int l = 0; l < patternCol_; l++ ) {  // パターン分の二次配列をぶん回す
-
-                  
-//                    cout << grid[i][j].currState << endl;
-//                    if (grid[i][j].currState == true) {
-//                        cout << "true" << endl;
-//                    }
+            for ( int k = 0; k < patternCol_; k++ ) {  // パターン分の二次配列をぶん回す
+                for ( int l = 0; l < patternRow_; l++ ) {  // パターン分の二次配列をぶん回す
 
                     // オフセット分ふくめたデータとパターンが一致しなければフラグを0にしてbreakする
                     // パターンについては一次配列で渡されてきた、ので後半の演算はこのようになっていると
@@ -51,7 +39,7 @@ resPattern patternDetect::detection(cell **grid, int rows, int cols) {
             
             // もしパターンが揃っていれば、そのパターンの座標をセットする。
             if ( matchFlag_ == 1 ) {
-//                cout << "detect" << endl;
+                cout << "detect" << endl;
 //                res[index_].exist[1] = i;
 //                res[index_].exist[0] = j;
 //                retRow_[ index_ ] = dRow_;

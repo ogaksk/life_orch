@@ -58,11 +58,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "src/patternDetect.cpp"
-            timestampString = "427547139.756839"
+            timestampString = "427560784.328157"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "53"
-            endingLineNumber = "53"
+            startingLineNumber = "41"
+            endingLineNumber = "41"
             landmarkName = "patternDetect::detection(cell **grid, int rows, int cols)"
             landmarkType = "5">
          </BreakpointContent>
@@ -122,11 +122,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "src/gameOfLife.cpp"
-            timestampString = "427557790.505126"
+            timestampString = "427560533.294857"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "61"
-            endingLineNumber = "61"
+            startingLineNumber = "60"
+            endingLineNumber = "60"
             landmarkName = "gameOfLife::update()"
             landmarkType = "5">
          </BreakpointContent>
