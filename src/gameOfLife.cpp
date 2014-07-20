@@ -56,20 +56,41 @@ void gameOfLife::init(int width, int height, int cellSize) {
 void gameOfLife::update() {
     if (ofGetFrameNum() % TICK_INTERVAL == 0 && active) {
         tick();
-        /*パターン検出インスタンスの実行メソッド*/
-        detect1->detection(grid, rows, cols);
+        
+//        /*パターン検出インスタンスの実行メソッド*/
+//        detect1->detection(grid, rows, cols);
+    
+        detect1->testMethod(grid, rows, cols);
+        
+//        for ( int i = 0; i < 100; i++ ) {  // オフセットを気にしている
+//            for ( int j = 0; j < 100; j++ ) {  // オフセットを気にしつつ二次配列をぶん回す
+//                cout << grid[i][j].currState << endl;
+//            }
+//        }
+        
+        
+        
     }
 }
 
 void gameOfLife::tick() {
 	// get active neighbors for each cell
+    
+    
+//    for ( int i = 0; i < 100; i++ ) {  // オフセットを気にしている
+//        for ( int j = 0; j < 100; j++ ) {  // オフセットを気にしつつ二次配列をぶん回す
+//            cell *thisCell = &grid[i][j];
+//            bool currState = thisCell->currState;
+//            cout << currState << endl;
+//        }
+//    }
+
 	for (int i=0; i<cols; i++) {
         for (int j=0; j<rows; j++) {
             cell *thisCell = &grid[i][j];
             thisCell->activeNeighbors = getNumActiveNeighbors(i, j);
             bool currState = thisCell->currState;
             int activeNeighbors = thisCell->activeNeighbors;
-                
             if (currState == true && activeNeighbors < 2) {
                 thisCell->nextState = false;
             } else if (currState == true && activeNeighbors > 3) {
@@ -81,6 +102,9 @@ void gameOfLife::tick() {
                 thisCell->nextState = true;
                 thisCell->color = highlight ? ofColor::green : ofColor::black;
             }
+            
+
+//            cout << thisCell->currState << endl;
         }
 	}
 	makeNextStateCurrent();
@@ -129,10 +153,10 @@ void gameOfLife::clear() {
 */
  
 void gameOfLife::patternMapping() {
-    int g1[] = {1, 3};
-    int p1[] = {1, 1, 1};
-    string n1 = "aaa";
-    detect1 = new patternDetect(n1, g1, p1);
+    int grid1[] = {1, 3};
+    int pat1[] = {1, 1, 1};
+    string name1 = "aaa";
+    detect1 = new patternDetect(name1, grid1, pat1);
 //    cout << detect1->mPattern.name << endl;
 }
 

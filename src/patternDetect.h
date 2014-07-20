@@ -26,9 +26,9 @@ class patternDetect {
 public:
     matchPattern mPattern;
     resPattern detection(cell **grid, int rows, int cols);
+    void testMethod(cell **grid, int rows, int cols);
     
     patternDetect(string paramsName, int paramsGrid[] ,int paramsPattern[]) {
-        cout << paramsPattern[2] << endl;
         this -> mPattern.name = paramsName;
         this -> mPattern.patternGrid[0] = paramsGrid[0];
         this -> mPattern.patternGrid[1] = paramsGrid[1];
