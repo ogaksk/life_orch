@@ -17,7 +17,7 @@ struct matchPattern {
     int *pattern;
 };
 
-struct response {
+struct resPattern {
     string patternName;
 	int exist[2];
 };
@@ -25,8 +25,7 @@ struct response {
 class patternDetect {
 public:
     matchPattern mPattern;
-    response res;
-    void detection(cell **grid);
+    resPattern detection(cell **grid, int rows, int cols);
     
     patternDetect(string paramsName, int paramsGrid[] ,int paramsPattern[]) {
         cout << paramsPattern[2] << endl;

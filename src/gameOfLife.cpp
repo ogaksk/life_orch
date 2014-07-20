@@ -1,4 +1,4 @@
-/*
+　/*
  *  gameOfLife.cpp
  *  conway
  *
@@ -56,7 +56,8 @@ void gameOfLife::init(int width, int height, int cellSize) {
 void gameOfLife::update() {
     if (ofGetFrameNum() % TICK_INTERVAL == 0 && active) {
         tick();
-        detect1->detection(grid);
+        /*パターン検出インスタンスの実行メソッド*/
+        detect1->detection(grid, rows, cols);
     }
 }
 
@@ -129,7 +130,7 @@ void gameOfLife::clear() {
  
 void gameOfLife::patternMapping() {
     int g1[] = {1, 3};
-    int p1[] = {2, 1, 1};
+    int p1[] = {1, 1, 1};
     string n1 = "aaa";
     detect1 = new patternDetect(n1, g1, p1);
 //    cout << detect1->mPattern.name << endl;

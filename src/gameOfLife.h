@@ -33,17 +33,18 @@ public:
   
   void keyPressed(int key);
   void mousePressed(int x, int y, int button);
+  int rows, cols;
   
   bool active;
   
 private:
   cell **grid;
-  int rows, cols;
   float cellWidth, cellHeight;
   bool fullScreen, highlight;
 
   int getNumActiveNeighbors(int colIndex, int rowIndex);
   int currState(int colIndex, int rowIndex);
+  
 
   void makeNextStateCurrent();
   void goFullScreen();
