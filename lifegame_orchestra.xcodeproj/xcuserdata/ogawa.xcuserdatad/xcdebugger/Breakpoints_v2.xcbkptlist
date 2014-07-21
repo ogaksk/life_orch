@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "src/patternDetect.h"
-            timestampString = "427562649.996515"
+            timestampString = "427635861.703487"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "38"
-            endingLineNumber = "38"
+            startingLineNumber = "26"
+            endingLineNumber = "26"
             landmarkName = "patternDetect(string paramsName, int paramsGrid[] ,int paramsPattern[])"
             landmarkType = "5">
          </BreakpointContent>
@@ -26,11 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "src/gameOfLife.cpp"
-            timestampString = "427610505.946269"
+            timestampString = "427636043.59222"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "73"
-            endingLineNumber = "73"
+            startingLineNumber = "65"
+            endingLineNumber = "65"
             landmarkName = "gameOfLife::update()"
             landmarkType = "5">
             <Locations>
@@ -192,47 +192,17 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "No"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "src/gameOfLife.cpp"
-            timestampString = "427610505.946269"
+            timestampString = "427639552.719904"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "63"
-            endingLineNumber = "63"
-            landmarkName = "gameOfLife::update()"
+            startingLineNumber = "81"
+            endingLineNumber = "81"
+            landmarkName = "gameOfLife::oscSending(resPattern datas)"
             landmarkType = "5">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "gameOfLife::update()"
-                  moduleName = "lifegame_orchestraDebug"
-                  urlString = "file:///Users/ogawa/Documents/of_v0.8.3_osx_release/apps/myApps/lifegame_orchestra/src/gameOfLife.cpp"
-                  timestampString = "427600744.15335"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "74"
-                  endingLineNumber = "74"
-                  offsetFromSymbolStart = "196">
-               </Location>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "gameOfLife::update()"
-                  moduleName = "lifegame_orchestraDebug"
-                  urlString = "file:///Users/ogawa/Documents/of_v0.8.3_osx_release/apps/myApps/lifegame_orchestra/src/gameOfLife.cpp"
-                  timestampString = "427600744.153648"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "74"
-                  endingLineNumber = "74"
-                  offsetFromSymbolStart = "204">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

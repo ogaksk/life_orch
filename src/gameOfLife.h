@@ -10,8 +10,8 @@
 #pragma once
 
 #include "ofMain.h"
-#include "ofMain.h"
 #include "ofxOsc.h"
+
 
 #define HOST "localhost" //送信先ホストのIPを設定
 #define PORT 8000 //送信先のポート番号を設定
@@ -21,6 +21,19 @@ struct cell {
 	bool nextState;
 	int activeNeighbors;
 	ofColor color;
+};
+
+
+struct matchPattern {
+  string name;
+  int patternGrid[2]; // ポインタ指定するとこけなかった 謎
+  int *pattern;
+};
+
+struct resPattern {
+  string patternName;
+	vector<int> x;
+  vector<int> y;
 };
 
 class gameOfLife : public ofBaseApp {
@@ -34,6 +47,7 @@ public:
   void draw();
   void clear();
   void patternMapping();
+  void oscSending(resPattern datas);
   void pause();
   
   void keyPressed(int key);

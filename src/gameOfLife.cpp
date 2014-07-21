@@ -11,6 +11,7 @@
 #include "patterns.h"
 #include "patternDetect.h"
 
+
 const int WIDTH = 800;
 const int HEIGHT = 500;
 const int CELLSIZE = 6;
@@ -33,6 +34,8 @@ void gameOfLife::setup() {
 	ofSetBackgroundAuto(true);
 	ofSetWindowTitle("Conway's Game of Life");
 	ofSetFrameRate(FRAMERATE);
+    
+    sender.setup(HOST, PORT);
 }
 
 void gameOfLife::init(int width, int height, int cellSize) {
@@ -56,23 +59,36 @@ void gameOfLife::init(int width, int height, int cellSize) {
 void gameOfLife::update() {
     if (ofGetFrameNum() % TICK_INTERVAL == 0 && active) {
         tick();
-        /*パターン検出インスタンスの実行メソッド*/
-    resPattern datas = detect1->detection(grid, rows, cols);
-    std::stringstream result;
-    std::copy(datas.x.begin(), datas.x.end(), std::ostream_iterator<int>(result, " "));
-        cout << result.str().c_str() << endl;
-//    string str(datas.begin(), datas.end());
-        
-//    ofxOscMessage m;
-//    //OSCアドレスの指定
-//    m.setAddress( "/note" );
-//    //OSC引数として、現在のマウスの座標(x, y)を送信
-//    m.addIntArg( 1 );
-//    //メッセージを送信
-//    sender.sendMessage( m );
-        
-        
+    
+      /*パターン検出インスタンスの実行メソッド*/
+      resPattern datas = detect1->detection(grid, rows, cols);
+      oscSending(datas);
     }
+}
+
+void gameOfLife::oscSending(resPattern datas) {
+  std::stringstream result_x, result_y;
+  std::copy(datas.x.begin(), datas.x.end(), std::ostream_iterator<int>(result_x, ","));
+  std::copy(datas.y.begin(), datas.y.end(), std::ostream_iterator<int>(result_y, ","));
+  
+  ofxOscMessage mx, my;
+  string textName = "/";
+  textName += datas.patternName;
+  textName += "/";
+  string textX = textName + "x";
+  string textY = textName + "y";
+  
+  mx.setAddress(textX);
+  mx.addStringArg( result_x.str() );
+  
+  my.setAddress( textY );
+  my.addStringArg( result_y.str() );
+  
+  //メッセージを送信
+  sender.sendMessage( mx );
+  sender.sendMessage( my );
+
+
 }
 
 

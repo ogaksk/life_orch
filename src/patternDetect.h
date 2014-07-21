@@ -10,18 +10,6 @@
 
 #include "gameOfLife.h"
 
-// この配列は静的だから参照受けのほうがよいか
-struct matchPattern {
-    string name;
-    int patternGrid[2]; // ポインタ指定するとこけなかった 謎
-    int *pattern;
-};
-
-struct resPattern {
-    string patternName;
-	vector<int> x;
-    vector<int> y;
-};
 
 class patternDetect {
 public:
