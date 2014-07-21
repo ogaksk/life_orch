@@ -10,6 +10,11 @@
 #pragma once
 
 #include "ofMain.h"
+#include "ofMain.h"
+#include "ofxOsc.h"
+
+#define HOST "localhost" //送信先ホストのIPを設定
+#define PORT 8000 //送信先のポート番号を設定
 
 struct cell {
 	bool currState;
@@ -48,4 +53,6 @@ private:
 
   void makeNextStateCurrent();
   void goFullScreen();
+    
+  ofxOscSender sender;
 };

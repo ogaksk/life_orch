@@ -9,9 +9,8 @@
 #include "patternDetect.h"
 
 resPattern patternDetect::detection(cell **grid, int rows, int cols) {
-//    cout <<  this->mPattern.pattern[0] << endl;
-    int index_ = 0;
-    vector<resPattern> res;
+
+    resPattern res;
     
     /* これからc++に移植する */
     int patternRow_ = this->mPattern.patternGrid[1];
@@ -39,25 +38,13 @@ resPattern patternDetect::detection(cell **grid, int rows, int cols) {
             
             // もしパターンが揃っていれば、そのパターンの座標をセットする。
             if ( matchFlag_ == 1 ) {
-                cout << "detect" << endl;
-//                res[index_].exist[1] = i;
-//                res[index_].exist[0] = j;
-//                retRow_[ index_ ] = dRow_;
-//                retCol_[ index_ ] = dCol_;
-//                
-//                // 返り血のインデックスを足してやる。これは配列追加メソッドとかでいいんじゃないかな。
-                index_++;
+                res.x.push_back(i);
+                res.y.push_back(j);
             }
         }
-    }
-}
 
-
-void patternDetect::testMethod(cell **grid, int rows, int cols) {
-    for ( int i = 0; i < cols; i++ ) {  // オフセットを気にしている
-        for ( int j = 0; j < rows; j++ ) {  // オフセットを気にしつつ二次配列をぶん回す
-            cout << grid[i][j].currState << endl;
-        }
     }
+    res.patternName =this->mPattern.name;
+    return res;
 }
 

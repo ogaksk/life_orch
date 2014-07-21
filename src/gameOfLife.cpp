@@ -57,9 +57,24 @@ void gameOfLife::update() {
     if (ofGetFrameNum() % TICK_INTERVAL == 0 && active) {
         tick();
         /*パターン検出インスタンスの実行メソッド*/
-        detect1->detection(grid, rows, cols);
+    resPattern datas = detect1->detection(grid, rows, cols);
+    std::stringstream result;
+    std::copy(datas.x.begin(), datas.x.end(), std::ostream_iterator<int>(result, " "));
+        cout << result.str().c_str() << endl;
+//    string str(datas.begin(), datas.end());
+        
+//    ofxOscMessage m;
+//    //OSCアドレスの指定
+//    m.setAddress( "/note" );
+//    //OSC引数として、現在のマウスの座標(x, y)を送信
+//    m.addIntArg( 1 );
+//    //メッセージを送信
+//    sender.sendMessage( m );
+        
+        
     }
 }
+
 
 void gameOfLife::tick() {
 	// get active neighbors for each cell

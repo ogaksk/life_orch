@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "src/patternDetect.h"
-            timestampString = "427557647.71761"
+            timestampString = "427562649.996515"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "37"
-            endingLineNumber = "37"
+            startingLineNumber = "38"
+            endingLineNumber = "38"
             landmarkName = "patternDetect(string paramsName, int paramsGrid[] ,int paramsPattern[])"
             landmarkType = "5">
          </BreakpointContent>
@@ -22,17 +22,47 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "src/gameOfLife.cpp"
-            timestampString = "427557790.505126"
+            timestampString = "427610505.946269"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "58"
-            endingLineNumber = "58"
+            startingLineNumber = "73"
+            endingLineNumber = "73"
             landmarkName = "gameOfLife::update()"
             landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "gameOfLife::update()"
+                  moduleName = "lifegame_orchestraDebug"
+                  urlString = "file:///Users/ogawa/Documents/of_v0.8.3_osx_release/apps/myApps/lifegame_orchestra/src/gameOfLife.cpp"
+                  timestampString = "427600802.749371"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "74"
+                  endingLineNumber = "74"
+                  offsetFromSymbolStart = "196">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "gameOfLife::update()"
+                  moduleName = "lifegame_orchestraDebug"
+                  urlString = "file:///Users/ogawa/Documents/of_v0.8.3_osx_release/apps/myApps/lifegame_orchestra/src/gameOfLife.cpp"
+                  timestampString = "427600802.749798"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "74"
+                  endingLineNumber = "74"
+                  offsetFromSymbolStart = "204">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -42,27 +72,25 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "src/patternDetect.cpp"
-            timestampString = "427526707.641764"
+            timestampString = "427562977.199973"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "12"
-            endingLineNumber = "12"
-            landmarkName = "patternDetect::detection(cell **grid, int rows, int cols)"
-            landmarkType = "5">
+            startingLineNumber = "11"
+            endingLineNumber = "11">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "src/patternDetect.cpp"
-            timestampString = "427560784.328157"
+            timestampString = "427609693.183967"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "41"
-            endingLineNumber = "41"
+            startingLineNumber = "40"
+            endingLineNumber = "40"
             landmarkName = "patternDetect::detection(cell **grid, int rows, int cols)"
             landmarkType = "5">
          </BreakpointContent>
@@ -74,11 +102,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "src/patternDetect.cpp"
-            timestampString = "427556076.762478"
+            timestampString = "427609693.183967"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "20"
-            endingLineNumber = "20"
+            startingLineNumber = "19"
+            endingLineNumber = "19"
             landmarkName = "patternDetect::detection(cell **grid, int rows, int cols)"
             landmarkType = "5">
          </BreakpointContent>
@@ -90,7 +118,23 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "src/patternDetect.cpp"
-            timestampString = "427556086.431815"
+            timestampString = "427609693.183967"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "22"
+            endingLineNumber = "22"
+            landmarkName = "patternDetect::detection(cell **grid, int rows, int cols)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "src/patternDetect.cpp"
+            timestampString = "427609693.183967"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "23"
@@ -102,33 +146,93 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "src/patternDetect.cpp"
-            timestampString = "427556100.374125"
+            timestampString = "427609693.183967"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "24"
-            endingLineNumber = "24"
+            startingLineNumber = "43"
+            endingLineNumber = "43"
             landmarkName = "patternDetect::detection(cell **grid, int rows, int cols)"
             landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "patternDetect::detection(cell**, int, int)"
+                  moduleName = "lifegame_orchestraDebug"
+                  urlString = "file:///Users/ogawa/Documents/of_v0.8.3_osx_release/apps/myApps/lifegame_orchestra/src/patternDetect.cpp"
+                  timestampString = "427601244.261787"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "43"
+                  endingLineNumber = "43"
+                  offsetFromSymbolStart = "529">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "patternDetect::detection(cell**, int, int)"
+                  moduleName = "lifegame_orchestraDebug"
+                  urlString = "file:///Users/ogawa/Documents/of_v0.8.3_osx_release/apps/myApps/lifegame_orchestra/src/patternDetect.cpp"
+                  timestampString = "427601244.262246"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "43"
+                  endingLineNumber = "43"
+                  offsetFromSymbolStart = "546">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "src/gameOfLife.cpp"
-            timestampString = "427560533.294857"
+            timestampString = "427610505.946269"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "60"
-            endingLineNumber = "60"
+            startingLineNumber = "63"
+            endingLineNumber = "63"
             landmarkName = "gameOfLife::update()"
             landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "gameOfLife::update()"
+                  moduleName = "lifegame_orchestraDebug"
+                  urlString = "file:///Users/ogawa/Documents/of_v0.8.3_osx_release/apps/myApps/lifegame_orchestra/src/gameOfLife.cpp"
+                  timestampString = "427600744.15335"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "74"
+                  endingLineNumber = "74"
+                  offsetFromSymbolStart = "196">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "gameOfLife::update()"
+                  moduleName = "lifegame_orchestraDebug"
+                  urlString = "file:///Users/ogawa/Documents/of_v0.8.3_osx_release/apps/myApps/lifegame_orchestra/src/gameOfLife.cpp"
+                  timestampString = "427600744.153648"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "74"
+                  endingLineNumber = "74"
+                  offsetFromSymbolStart = "204">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

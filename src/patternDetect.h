@@ -19,7 +19,8 @@ struct matchPattern {
 
 struct resPattern {
     string patternName;
-	int exist[2];
+	vector<int> x;
+    vector<int> y;
 };
 
 class patternDetect {
