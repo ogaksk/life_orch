@@ -37,7 +37,7 @@ void gameOfLife::setup() {
 	ofSetWindowTitle("Conway's Game of Life");
 	ofSetFrameRate(FRAMERATE);
   
-  myImage.loadImage("test.jpg");
+  myImage.loadImage("circleAlpha.tif");
   
   sender.setup(HOST, PORT);
   
@@ -64,6 +64,8 @@ void gameOfLife::init(int width, int height, int cellSize) {
 void gameOfLife::update() {
     if (ofGetFrameNum() % TICK_INTERVAL == 0 && active) {
         tick();
+      resPattern datas = detect1->detection(grid, rows, cols);
+      oscSending(datas);
     }
 }
 
@@ -96,18 +98,16 @@ void gameOfLife::drawingResPatterns(resPattern &datas, matchPattern &mPattern) {
   
 //  glBlendFunc(GL_SRC_ALPHA, GL_ONE);
   if (datas.x.size() != 0) {
-    /* datas.xの配列をイテレートする必要がある */
-    /* 今はx[0]だけでためしにやる */
-    /*なんか配列操作がおかしいので見直す*/
     for (int h=0; h < datas.x.size(); h++) {
       for (int i=0; i< mPattern.patternGrid[0]; i++) {
         for (int j=0; j < mPattern.patternGrid[1]; j++) {
 //          ofSetColor(200, 200, 200);
           ofNoFill();
           if (mPattern.pattern[mPattern.patternGrid[0] * i + j ] == 1) {
-            ofSetColor(250, 100, 30, 40);
+            ofSetColor(0, 100, 120, 200);
             ofFill();
-            ofRect( (i + datas.x[h]) * cellWidth, (j + datas.y[h]) * cellHeight, cellWidth, cellHeight);
+            myImage.ofImage_::draw((float)((i + datas.x[h]) * cellWidth), (float)((j + datas.y[h]) * cellHeight), cellWidth*3, cellHeight*3);
+//            ofRect( (i + datas.x[h]) * cellWidth, (j + datas.y[h]) * cellHeight, cellWidth, cellHeight);
           }
         }
       }
@@ -131,10 +131,10 @@ void gameOfLife::tick() {
                 thisCell->nextState = false;
             } else if (currState == true && activeNeighbors > 1 && activeNeighbors < 4) {
                 thisCell->nextState = true;
-                thisCell->color = ofColor::black;
+                thisCell->color = ofColor::white;
             } else if (currState == false && activeNeighbors == 3) {
                 thisCell->nextState = true;
-                thisCell->color = highlight ? ofColor::green : ofColor::black;
+                thisCell->color = highlight ? ofColor::green : ofColor::white;
             }
         }
 	}
@@ -150,27 +150,28 @@ void gameOfLife::makeNextStateCurrent() {
 }
 
 void gameOfLife::draw() {
+  ofBackground(0, 0, 0);
+  ofEnableBlendMode(OF_BLENDMODE_ADD);
 	for (int i=0; i<cols; i++) {
 		for (int j=0; j<rows; j++) {
       cell thisCell = grid[i][j];
 			ofSetColor(200, 200, 200);
 			ofNoFill();
-			ofRect(i*cellWidth, j*cellHeight, cellWidth, cellHeight);
+//			ofRect(i*cellWidth, j*cellHeight, cellWidth, cellHeight);
       if (thisCell.currState == true) {
-				ofSetColor(thisCell.color.r, thisCell.color.g, thisCell.color.b, 100);
-				ofFill();				
-  			ofRect(i*cellWidth, j*cellHeight, cellWidth, cellHeight);
+				ofSetColor(thisCell.color.r, thisCell.color.g, thisCell.color.b, 250);
+				ofFill();
+        myImage.ofImage_::draw((float)(i*cellWidth), (float)(j*cellHeight), cellWidth*2.5, cellHeight*2.5);
+//  			ofRect(i*cellWidth, j*cellHeight, cellWidth, cellHeight);
 				ofNoFill();
 			}
 		}
 	}
   
   /*パターン検出インスタンスの実行メソッド*/
-  resPattern datas = detect1->detection(grid, rows, cols);
-  oscSending(datas);
-  ofEnableBlendMode(OF_BLENDMODE_SCREEN);
-  drawingResPatterns(datas, detect1->mPattern);
-  ofEnableBlendMode(OF_BLENDMODE_DISABLED);
+
+//  drawingResPatterns(datas, detect1->mPattern);
+//  ofEnableBlendMode(OF_BLENDMODE_ALPHA);
 }
 
 void gameOfLife::clear() {
