@@ -20,22 +20,27 @@ const int TICK_INTERVAL = 6;
 const int FRAMERATE = 60;
 patternDetect *detect1;
 
+ofImage myImage;
+
 void gameOfLife::setup() {
-    fullScreen = false;
-    highlight = false;
-    active = false;
+  fullScreen = false;
+  highlight = false;
+  active = false;
   
-    ofSetFullscreen(false);
-    ofSetWindowShape(WIDTH, HEIGHT);
+  ofSetFullscreen(false);
+  ofSetWindowShape(WIDTH, HEIGHT);
   
-    init(WIDTH, HEIGHT, CELLSIZE);
+  init(WIDTH, HEIGHT, CELLSIZE);
   
 	ofBackground(ofColor::white);
 	ofSetBackgroundAuto(true);
 	ofSetWindowTitle("Conway's Game of Life");
 	ofSetFrameRate(FRAMERATE);
-    
-    sender.setup(HOST, PORT);
+  
+  myImage.loadImage("test.jpg");
+  
+  sender.setup(HOST, PORT);
+  
 }
 
 void gameOfLife::init(int width, int height, int cellSize) {
@@ -59,14 +64,11 @@ void gameOfLife::init(int width, int height, int cellSize) {
 void gameOfLife::update() {
     if (ofGetFrameNum() % TICK_INTERVAL == 0 && active) {
         tick();
-    
-      /*パターン検出インスタンスの実行メソッド*/
-      resPattern datas = detect1->detection(grid, rows, cols);
-      oscSending(datas);
     }
 }
 
-void gameOfLife::oscSending(resPattern datas) {
+/*今は参照渡し風に書いている　複数のインスタンスを渡してバグが生まれたら対応*/
+void gameOfLife::oscSending(resPattern &datas) {
   std::stringstream result_x, result_y;
   std::copy(datas.x.begin(), datas.x.end(), std::ostream_iterator<int>(result_x, ","));
   std::copy(datas.y.begin(), datas.y.end(), std::ostream_iterator<int>(result_y, ","));
@@ -87,10 +89,32 @@ void gameOfLife::oscSending(resPattern datas) {
   //メッセージを送信
   sender.sendMessage( mx );
   sender.sendMessage( my );
-
-
 }
 
+void gameOfLife::drawingResPatterns(resPattern &datas, matchPattern &mPattern) {
+//  glEnable(GL_BLEND);
+  
+//  glBlendFunc(GL_SRC_ALPHA, GL_ONE);
+  if (datas.x.size() != 0) {
+    /* datas.xの配列をイテレートする必要がある */
+    /* 今はx[0]だけでためしにやる */
+    /*なんか配列操作がおかしいので見直す*/
+    for (int h=0; h < datas.x.size(); h++) {
+      for (int i=0; i< mPattern.patternGrid[0]; i++) {
+        for (int j=0; j < mPattern.patternGrid[1]; j++) {
+//          ofSetColor(200, 200, 200);
+          ofNoFill();
+          if (mPattern.pattern[mPattern.patternGrid[0] * i + j ] == 1) {
+            ofSetColor(250, 100, 30, 40);
+            ofFill();
+            ofRect( (i + datas.x[h]) * cellWidth, (j + datas.y[h]) * cellHeight, cellWidth, cellHeight);
+          }
+        }
+      }
+    }
+  }
+}
+  
 
 void gameOfLife::tick() {
 	// get active neighbors for each cell
@@ -135,11 +159,18 @@ void gameOfLife::draw() {
       if (thisCell.currState == true) {
 				ofSetColor(thisCell.color.r, thisCell.color.g, thisCell.color.b, 100);
 				ofFill();				
-				ofRect(i*cellWidth, j*cellHeight, cellWidth, cellHeight);
+  			ofRect(i*cellWidth, j*cellHeight, cellWidth, cellHeight);
 				ofNoFill();
 			}
 		}
 	}
+  
+  /*パターン検出インスタンスの実行メソッド*/
+  resPattern datas = detect1->detection(grid, rows, cols);
+  oscSending(datas);
+  ofEnableBlendMode(OF_BLENDMODE_SCREEN);
+  drawingResPatterns(datas, detect1->mPattern);
+  ofEnableBlendMode(OF_BLENDMODE_DISABLED);
 }
 
 void gameOfLife::clear() {
