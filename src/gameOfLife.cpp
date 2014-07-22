@@ -20,6 +20,7 @@ const int TICK_INTERVAL = 6;
 const int FRAMERATE = 60;
 patternDetect *detect1;
 
+
 ofImage myImage;
 
 void gameOfLife::setup() {
