@@ -18,9 +18,17 @@ const int CELLSIZE = 6;
 const int FULLSCREEN_CELLSIZE = 8;
 const int TICK_INTERVAL = 6;
 const int FRAMERATE = 60;
-patternDetect *detect1;
+
+/*//////////////////////////////////*/
+    // いくつかのグローバル変数//
+
+patternDetect *blink1;
+patternDetect *blink2;
+
 vector<resPattern> datas;
 vector<resPattern>::iterator resData;
+
+/*//////////////////////////////////*/
 
 ofImage myImage;
 
@@ -66,7 +74,8 @@ void gameOfLife::init(int width, int height, int cellSize) {
 void gameOfLife::update() {
     if (ofGetFrameNum() % TICK_INTERVAL == 0 && active) {
       tick();
-      datas.push_back(detect1->detection(grid, rows, cols));
+      datas.push_back(blink1->detection(grid, rows, cols));
+      datas.push_back(blink2->detection(grid, rows, cols));
       oscSending(datas);
     }
 }
@@ -75,7 +84,6 @@ void gameOfLife::update() {
 void gameOfLife::oscSending(vector<resPattern> &datas) {
   for(resData = datas.begin(); resData != datas.end(); ++resData) {
     std::stringstream result_x, result_y;
-
     std::copy(&*resData->x.begin(), &*resData->x.end(), std::ostream_iterator<int>(result_x, ","));
     std::copy(&*resData->y.begin(), &*resData->y.end(), std::ostream_iterator<int>(result_y, ","));
     
@@ -110,10 +118,13 @@ void gameOfLife::drawingResPatterns(vector<resPattern> &datas, matchPattern &mPa
   
   
             if (mPattern.pattern[mPattern.patternGrid[0] * i + j ] == 1) {
+              cout << mPattern.name << endl;
+              cout << mPattern.patternGrid[0] * i + j << endl;
               ofSetColor(0, 100, 120, 255);
               ofFill();
-              myImage.ofImage_::draw((float)((i + resData->x.at(h)) * cellWidth), (float)((j + resData->y.at(h)) * cellHeight), cellWidth*3.0, cellHeight*3.0);
-  //            ofRect( (i + datas.x[h]) * cellWidth, (j + datas.y[h]) * cellHeight, cellWidth, cellHeight);
+//              myImage.ofImage_::draw((float)((i + resData->x.at(h)) * cellWidth), (float)((j + resData->y.at(h)) * cellHeight), cellWidth*3.0, cellHeight*3.0);
+              ofRect( (i + resData->x.at(h)) * cellWidth, (j + resData->y.at(h)) * cellHeight, cellWidth, cellHeight);
+              ofNoFill();
             }
           }
         }
@@ -166,22 +177,23 @@ void gameOfLife::draw() {
 			ofNoFill();
 //			ofRect(i*cellWidth, j*cellHeight, cellWidth, cellHeight);
       if (thisCell.currState == true) {
-				ofSetColor(thisCell.color.r, thisCell.color.g, thisCell.color.b, 910);
+				ofSetColor(thisCell.color.r, thisCell.color.g, thisCell.color.b, 30);
 				ofFill();
         myImage.ofImage_::draw((float)(i*cellWidth), (float)(j*cellHeight), cellWidth*2.0, cellHeight*2.0);
-//  			ofRect(i*cellWidth, j*cellHeight, cellWidth, cellHeight);
+  			ofRect(i*cellWidth, j*cellHeight, cellWidth, cellHeight);
 				ofNoFill();
 			}
 		}
 	}
-  
   /*パターン検出インスタンスの実行メソッド*/
-
-  drawingResPatterns(datas, detect1->mPattern);
+  drawingResPatterns(datas, blink1->mPattern);
+  drawingResPatterns(datas, blink2->mPattern);
   ofEnableBlendMode(OF_BLENDMODE_ALPHA);
   
-  /*レスデータはここでクリアする*/
-  datas.clear();
+  if (ofGetFrameNum() % TICK_INTERVAL == 0 && active) {
+    /*レスデータはここでクリアする*/
+    datas.clear();
+  }
 }
 
 void gameOfLife::clear() {
@@ -197,16 +209,17 @@ void gameOfLife::clear() {
 	}
 }
 
-/**
+/*****************************
  * 検出パターンを初期化するメソッド
-*/
- 
+*****************************/
 void gameOfLife::patternMapping() {
-    int grid1[] = {1, 3};
-    int pat1[] = {1, 1, 1};
-    string name1 = "aaa";
-    detect1 = new patternDetect(name1, grid1, pat1);
-//    cout << detect1->mPattern.name << endl;
+    
+    int grid1[] = {1, 5};
+    int grid2[] = {3, 3};
+    int pat1[] = {0, 0, 0, 1, 1, 1, 0, 0, 0};
+    int pat2[] = {0, 1, 0, 0, 1, 0, 0, 1, 0};
+    blink1 = new patternDetect("blink1", grid2, pat1);
+    blink2 = new patternDetect("blink2", grid2, pat2);
 }
 
 
