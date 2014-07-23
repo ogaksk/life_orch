@@ -150,11 +150,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "src/gameOfLife.cpp"
-            timestampString = "427772356.673748"
+            timestampString = "427735511.071787"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "76"
-            endingLineNumber = "76">
+            startingLineNumber = "85"
+            endingLineNumber = "85"
+            landmarkName = "gameOfLife::oscSending(resPattern &amp;datas)"
+            landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -164,11 +166,25 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "src/gameOfLife.cpp"
-            timestampString = "427773208.195612"
+            timestampString = "427735511.071787"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "125"
-            endingLineNumber = "125"
+            startingLineNumber = "73"
+            endingLineNumber = "73">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "src/gameOfLife.cpp"
+            timestampString = "427735511.071787"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "118"
+            endingLineNumber = "118"
             landmarkName = "gameOfLife::drawingResPatterns(resPattern &amp;datas, matchPattern &amp;mPattern)"
             landmarkType = "5">
          </BreakpointContent>
@@ -180,11 +196,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "src/gameOfLife.cpp"
-            timestampString = "427773208.195612"
+            timestampString = "427735511.071787"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "126"
-            endingLineNumber = "126"
+            startingLineNumber = "119"
+            endingLineNumber = "119"
             landmarkName = "gameOfLife::drawingResPatterns(resPattern &amp;datas, matchPattern &amp;mPattern)"
             landmarkType = "5">
          </BreakpointContent>
@@ -196,11 +212,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "src/gameOfLife.cpp"
-            timestampString = "427773208.195612"
+            timestampString = "427735511.071787"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "127"
-            endingLineNumber = "127">
+            startingLineNumber = "120"
+            endingLineNumber = "120">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
