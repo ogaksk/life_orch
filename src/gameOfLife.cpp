@@ -74,13 +74,13 @@ void gameOfLife::update() {
 
 /*今は参照渡し風に書いている　複数のインスタンスを渡してバグが生まれたら対応*/
 void gameOfLife::oscSending(vector<resPattern> &datas) {
+  cout << datas.size() << endl;
   for(resData = datas.begin(); resData != datas.end(); ++resData){
     std::stringstream result_x, result_y;
-    
-    cout << *resData->x.begin() << endl;
+    vector<int> a = resData->x;
 
-//    std::copy((int)(*resData->x.begin()), (int)(*resData->x.end()), std::ostream_iterator<int>(result_x, ","));
-//    std::copy(*resData->y.begin(), *resData->y.end(), std::ostream_iterator<int>(result_y, ","));
+    std::copy(&*resData->x.begin(), &*resData->x.end(), std::ostream_iterator<int>(result_x, ","));
+    std::copy(&*resData->y.begin(), &*resData->y.end(), std::ostream_iterator<int>(result_y, ","));
     
     ofxOscMessage mx, my;
     string textName = "/";
