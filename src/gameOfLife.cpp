@@ -19,7 +19,9 @@ const int FULLSCREEN_CELLSIZE = 8;
 const int TICK_INTERVAL = 6;
 const int FRAMERATE = 60;
 patternDetect *detect1;
-
+/*将来的にここは配列にして全てのパターンを受け持つように*/
+vector<resPattern> datas;
+vector<resPattern>::iterator resData;
 
 ofImage myImage;
 
@@ -64,34 +66,41 @@ void gameOfLife::init(int width, int height, int cellSize) {
 
 void gameOfLife::update() {
     if (ofGetFrameNum() % TICK_INTERVAL == 0 && active) {
-        tick();
-      resPattern datas = detect1->detection(grid, rows, cols);
+      tick();
+      datas.push_back(detect1->detection(grid, rows, cols));
       oscSending(datas);
     }
 }
 
 /*今は参照渡し風に書いている　複数のインスタンスを渡してバグが生まれたら対応*/
-void gameOfLife::oscSending(resPattern &datas) {
-  std::stringstream result_x, result_y;
-  std::copy(datas.x.begin(), datas.x.end(), std::ostream_iterator<int>(result_x, ","));
-  std::copy(datas.y.begin(), datas.y.end(), std::ostream_iterator<int>(result_y, ","));
+void gameOfLife::oscSending(vector<resPattern> &datas) {
+  for(resData = datas.begin(); resData != datas.end(); ++resData){
+    std::stringstream result_x, result_y;
+    
+    cout << *resData->x.begin() << endl;
+
+//    std::copy((int)(*resData->x.begin()), (int)(*resData->x.end()), std::ostream_iterator<int>(result_x, ","));
+//    std::copy(*resData->y.begin(), *resData->y.end(), std::ostream_iterator<int>(result_y, ","));
+    
+    ofxOscMessage mx, my;
+    string textName = "/";
+    textName += resData->patternName;
+    textName += "/";
+    string textX = textName + "x";
+    string textY = textName + "y";
+    
+    mx.setAddress(textX);
+    mx.addStringArg( result_x.str() );
+    
+    my.setAddress( textY );
+    my.addStringArg( result_y.str() );
+    
+    //メッセージを送信
+    sender.sendMessage( mx );
+    sender.sendMessage( my );
+  };
   
-  ofxOscMessage mx, my;
-  string textName = "/";
-  textName += datas.patternName;
-  textName += "/";
-  string textX = textName + "x";
-  string textY = textName + "y";
-  
-  mx.setAddress(textX);
-  mx.addStringArg( result_x.str() );
-  
-  my.setAddress( textY );
-  my.addStringArg( result_y.str() );
-  
-  //メッセージを送信
-  sender.sendMessage( mx );
-  sender.sendMessage( my );
+
 }
 
 void gameOfLife::drawingResPatterns(resPattern &datas, matchPattern &mPattern) {
@@ -107,7 +116,7 @@ void gameOfLife::drawingResPatterns(resPattern &datas, matchPattern &mPattern) {
           if (mPattern.pattern[mPattern.patternGrid[0] * i + j ] == 1) {
             ofSetColor(0, 100, 120, 200);
             ofFill();
-            myImage.ofImage_::draw((float)((i + datas.x[h]) * cellWidth), (float)((j + datas.y[h]) * cellHeight), cellWidth*3, cellHeight*3);
+            myImage.ofImage_::draw((float)((i + datas.x[h]) * cellWidth), (float)((j + datas.y[h]) * cellHeight), cellWidth*2.0, cellHeight*2.0);
 //            ofRect( (i + datas.x[h]) * cellWidth, (j + datas.y[h]) * cellHeight, cellWidth, cellHeight);
           }
         }
@@ -160,9 +169,9 @@ void gameOfLife::draw() {
 			ofNoFill();
 //			ofRect(i*cellWidth, j*cellHeight, cellWidth, cellHeight);
       if (thisCell.currState == true) {
-				ofSetColor(thisCell.color.r, thisCell.color.g, thisCell.color.b, 250);
+				ofSetColor(thisCell.color.r, thisCell.color.g, thisCell.color.b, 910);
 				ofFill();
-        myImage.ofImage_::draw((float)(i*cellWidth), (float)(j*cellHeight), cellWidth*2.5, cellHeight*2.5);
+        myImage.ofImage_::draw((float)(i*cellWidth), (float)(j*cellHeight), cellWidth*2.0, cellHeight*2.0);
 //  			ofRect(i*cellWidth, j*cellHeight, cellWidth, cellHeight);
 				ofNoFill();
 			}
@@ -172,7 +181,7 @@ void gameOfLife::draw() {
   /*パターン検出インスタンスの実行メソッド*/
 
 //  drawingResPatterns(datas, detect1->mPattern);
-//  ofEnableBlendMode(OF_BLENDMODE_ALPHA);
+  ofEnableBlendMode(OF_BLENDMODE_ALPHA);
 }
 
 void gameOfLife::clear() {

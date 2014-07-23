@@ -47,7 +47,7 @@ public:
   void draw();
   void clear();
   void patternMapping();
-  void oscSending(resPattern &datas);
+  void oscSending(vector<resPattern> &datas);
   void drawingResPatterns(resPattern &datas, matchPattern &mPattern);
   void pause();
   
