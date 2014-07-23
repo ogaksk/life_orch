@@ -48,7 +48,7 @@ public:
   void clear();
   void patternMapping();
   void oscSending(vector<resPattern> &datas);
-  void drawingResPatterns(resPattern &datas, matchPattern &mPattern);
+  void drawingResPatterns(vector<resPattern> &datas, matchPattern &mPattern);
   void pause();
   
   void keyPressed(int key);
