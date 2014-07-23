@@ -69,6 +69,7 @@ void gameOfLife::update() {
       tick();
       datas.push_back(detect1->detection(grid, rows, cols));
       oscSending(datas);
+      datas.clear();
     }
 }
 
