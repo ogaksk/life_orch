@@ -24,6 +24,9 @@ const int FRAMERATE = 60;
 
 patternDetect *blink1;
 patternDetect *blink2;
+patternDetect *glider1;
+patternDetect *glider2;
+patternDetect *glider3;
 
 vector<resPattern> datas;
 vector<resPattern>::iterator resData;
@@ -76,6 +79,9 @@ void gameOfLife::update() {
       tick();
       datas.push_back(blink1->detection(grid, rows, cols));
       datas.push_back(blink2->detection(grid, rows, cols));
+      datas.push_back(glider1->detection(grid, rows, cols));
+      datas.push_back(glider2->detection(grid, rows, cols));
+      datas.push_back(glider3->detection(grid, rows, cols));
       oscSending(datas);
     }
 }
@@ -108,31 +114,6 @@ void gameOfLife::oscSending(vector<resPattern> &datas) {
 
 }
 
-void gameOfLife::drawingResPatterns(vector<resPattern> &datas, matchPattern &mPattern) {
-  for(resData = datas.begin(); resData != datas.end(); ++resData) {
-    resData->x.size();
-    if (resData->x.size() != 0) {
-      for (int h=0; h < resData->x.size(); h++) {
-        for (int i=0; i< mPattern.patternGrid[0]; i++) {
-          for (int j=0; j < mPattern.patternGrid[1]; j++) {
-  
-  
-            if (mPattern.pattern[mPattern.patternGrid[0] * i + j ] == 1) {
-              cout << mPattern.name << endl;
-              cout << mPattern.patternGrid[0] * i + j << endl;
-              ofSetColor(0, 100, 120, 255);
-              ofFill();
-//              myImage.ofImage_::draw((float)((i + resData->x.at(h)) * cellWidth), (float)((j + resData->y.at(h)) * cellHeight), cellWidth*3.0, cellHeight*3.0);
-              ofRect( (i + resData->x.at(h)) * cellWidth, (j + resData->y.at(h)) * cellHeight, cellWidth, cellHeight);
-              ofNoFill();
-            }
-          }
-        }
-      }
-    }
-  }
-}
-  
 
 void gameOfLife::tick() {
 	// get active neighbors for each cell
@@ -169,7 +150,7 @@ void gameOfLife::makeNextStateCurrent() {
 
 void gameOfLife::draw() {
   ofBackground(0, 0, 0);
-  ofEnableBlendMode(OF_BLENDMODE_ADD);
+//  ofEnableBlendMode(OF_BLENDMODE_ADD);
 	for (int i=0; i<cols; i++) {
 		for (int j=0; j<rows; j++) {
       cell thisCell = grid[i][j];
@@ -186,8 +167,11 @@ void gameOfLife::draw() {
 		}
 	}
   /*パターン検出インスタンスの実行メソッド*/
-  drawingResPatterns(datas, blink1->mPattern);
-  drawingResPatterns(datas, blink2->mPattern);
+  drawingResPatterns(datas, blink1->mPattern, ofColor::green);
+  drawingResPatterns(datas, blink2->mPattern, ofColor::blue);
+//  drawingResPatterns(datas, glider1->mPattern, ofColor::red);
+//  drawingResPatterns(datas, glider2->mPattern, ofColor::orange);
+//  drawingResPatterns(datas, glider3->mPattern, ofColor::yellowGreen);
   ofEnableBlendMode(OF_BLENDMODE_ALPHA);
   
   if (ofGetFrameNum() % TICK_INTERVAL == 0 && active) {
@@ -195,6 +179,33 @@ void gameOfLife::draw() {
     datas.clear();
   }
 }
+
+/*::::::::::::::::::::::::
+ // パターン発見時の描画まわり
+::::::::::::::::::::::::*/
+void gameOfLife::drawingResPatterns(vector<resPattern> &datas, matchPattern &mPattern, ofColor paramsColor) {
+  for(resData = datas.begin(); resData != datas.end(); ++resData) {
+    resData->x.size();
+    if (resData->x.size() != 0) {
+      for (int h=0; h < resData->x.size(); h++) {
+        for (int i=0; i< mPattern.patternGrid[0]; i++) {
+          for (int j=0; j < mPattern.patternGrid[1]; j++) {
+            
+            
+            if (mPattern.pattern[mPattern.patternGrid[0] * i + j ] == 1) {
+              ofSetColor(paramsColor.r, paramsColor.g, paramsColor.b, 100);
+              ofFill();
+              //              myImage.ofImage_::draw((float)((i + resData->x.at(h)) * cellWidth), (float)((j + resData->y.at(h)) * cellHeight), cellWidth*3.0, cellHeight*3.0);
+              ofRect( (i + resData->x.at(h)) * cellWidth, (j + resData->y.at(h)) * cellHeight, cellWidth, cellHeight);
+              ofNoFill();
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
 
 void gameOfLife::clear() {
 	grid = new cell *[cols];
@@ -218,8 +229,15 @@ void gameOfLife::patternMapping() {
     int grid2[] = {3, 3};
     int pat1[] = {0, 0, 0, 1, 1, 1, 0, 0, 0};
     int pat2[] = {0, 1, 0, 0, 1, 0, 0, 1, 0};
+  
+  int patGlider1[] = {0, 1, 0, 0, 0, 1, 1, 1, 1};
+    int patGlider2[] = {0, 0, 1, 1, 0, 1, 0, 1, 1};
+    int patGlider3[] = {1, 0, 0, 0, 1, 1, 1, 1, 0};
     blink1 = new patternDetect("blink1", grid2, pat1);
     blink2 = new patternDetect("blink2", grid2, pat2);
+    glider1 = new patternDetect("glider1", grid2, patGlider1);
+    glider2 = new patternDetect("glider2", grid2, patGlider2);
+    glider3 = new patternDetect("glider3", grid2, patGlider3);
 }
 
 
