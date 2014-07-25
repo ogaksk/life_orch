@@ -27,6 +27,7 @@ patternDetect *blink2;
 patternDetect *glider1;
 patternDetect *glider2;
 patternDetect *glider3;
+patternDetect *line5;
 
 vector<resPattern> datas;
 vector<resPattern>::iterator resData;
@@ -79,9 +80,13 @@ void gameOfLife::update() {
       tick();
       datas.push_back(blink1->detection(grid, rows, cols));
       datas.push_back(blink2->detection(grid, rows, cols));
+      
       datas.push_back(glider1->detection(grid, rows, cols));
       datas.push_back(glider2->detection(grid, rows, cols));
       datas.push_back(glider3->detection(grid, rows, cols));
+      
+      datas.push_back(line5->detection(grid, rows, cols));
+
       oscSending(datas);
     }
 }
@@ -95,7 +100,7 @@ void gameOfLife::oscSending(vector<resPattern> &datas) {
     
     ofxOscMessage mx, my;
     string textName = "/";
-    textName += resData->patternName;
+    textName += resData->mPattern.name;
     textName += "/";
     string textX = textName + "x";
     string textY = textName + "y";
@@ -150,7 +155,7 @@ void gameOfLife::makeNextStateCurrent() {
 
 void gameOfLife::draw() {
   ofBackground(0, 0, 0);
-//  ofEnableBlendMode(OF_BLENDMODE_ADD);
+  ofEnableBlendMode(OF_BLENDMODE_ADD);
 	for (int i=0; i<cols; i++) {
 		for (int j=0; j<rows; j++) {
       cell thisCell = grid[i][j];
@@ -166,12 +171,12 @@ void gameOfLife::draw() {
 			}
 		}
 	}
-  /*パターン検出インスタンスの実行メソッド*/
-  drawingResPatterns(datas, blink1->mPattern, ofColor::green);
-  drawingResPatterns(datas, blink2->mPattern, ofColor::blue);
-//  drawingResPatterns(datas, glider1->mPattern, ofColor::red);
-//  drawingResPatterns(datas, glider2->mPattern, ofColor::orange);
-//  drawingResPatterns(datas, glider3->mPattern, ofColor::yellowGreen);
+  /*パターン検出インスタンスの実行メソッド いつもはしたのif文のなかに入れておく*/
+  drawingResPatterns(datas);
+  drawingResPatterns(datas);
+  drawingResPatterns(datas);
+  drawingResPatterns(datas);
+  drawingResPatterns(datas);
   ofEnableBlendMode(OF_BLENDMODE_ALPHA);
   
   if (ofGetFrameNum() % TICK_INTERVAL == 0 && active) {
@@ -183,21 +188,24 @@ void gameOfLife::draw() {
 /*::::::::::::::::::::::::
  // パターン発見時の描画まわり
 ::::::::::::::::::::::::*/
-void gameOfLife::drawingResPatterns(vector<resPattern> &datas, matchPattern &mPattern, ofColor paramsColor) {
+
+void gameOfLife::drawingResPatterns(vector<resPattern> &datas) {
   for(resData = datas.begin(); resData != datas.end(); ++resData) {
     resData->x.size();
     if (resData->x.size() != 0) {
       for (int h=0; h < resData->x.size(); h++) {
-        for (int i=0; i< mPattern.patternGrid[0]; i++) {
-          for (int j=0; j < mPattern.patternGrid[1]; j++) {
-            
-            
-            if (mPattern.pattern[mPattern.patternGrid[0] * i + j ] == 1) {
-              ofSetColor(paramsColor.r, paramsColor.g, paramsColor.b, 100);
+        for (int i=0; i< resData->mPattern.patternGrid[0]; i++) {
+          for (int j=0; j < resData->mPattern.patternGrid[1]; j++) {
+            if (resData->mPattern.pattern[resData->mPattern.patternGrid[0] * j + i ] == 1) {
+              
+              /*検出描画チェックログ よくつかう*/
+//              cout << resData->mPattern.name << endl;
+              
+              ofSetColor(resData->mPattern.color.r, resData->mPattern.color.g, resData->mPattern.color.b, 30);
               ofFill();
-              //              myImage.ofImage_::draw((float)((i + resData->x.at(h)) * cellWidth), (float)((j + resData->y.at(h)) * cellHeight), cellWidth*3.0, cellHeight*3.0);
+              //myImage.ofImage_::draw((float)((i + resData->x.at(h)) * cellWidth), (float)((j + resData->y.at(h)) * cellHeight), cellWidth*3.0, cellHeight*3.0);
               ofRect( (i + resData->x.at(h)) * cellWidth, (j + resData->y.at(h)) * cellHeight, cellWidth, cellHeight);
-              ofNoFill();
+//              ofNoFill();
             }
           }
         }
@@ -225,19 +233,24 @@ void gameOfLife::clear() {
 *****************************/
 void gameOfLife::patternMapping() {
     
-    int grid1[] = {1, 5};
+    int grid1[] = {1, 7};
     int grid2[] = {3, 3};
     int pat1[] = {0, 0, 0, 1, 1, 1, 0, 0, 0};
     int pat2[] = {0, 1, 0, 0, 1, 0, 0, 1, 0};
+    int pat3[] = {0, 1, 1, 1, 1, 1, 0};
   
-  int patGlider1[] = {0, 1, 0, 0, 0, 1, 1, 1, 1};
+    int patGlider1[] = {0, 1, 0, 0, 0, 1, 1, 1, 1};
     int patGlider2[] = {0, 0, 1, 1, 0, 1, 0, 1, 1};
     int patGlider3[] = {1, 0, 0, 0, 1, 1, 1, 1, 0};
-    blink1 = new patternDetect("blink1", grid2, pat1);
-    blink2 = new patternDetect("blink2", grid2, pat2);
-    glider1 = new patternDetect("glider1", grid2, patGlider1);
-    glider2 = new patternDetect("glider2", grid2, patGlider2);
-    glider3 = new patternDetect("glider3", grid2, patGlider3);
+  
+    blink1 = new patternDetect("blink1", grid2, pat1, ofColor::green);
+    blink2 = new patternDetect("blink2", grid2, pat2, ofColor::blue);
+  
+    glider1 = new patternDetect("glider1", grid2, patGlider1, ofColor::red);
+    glider2 = new patternDetect("glider2", grid2, patGlider2, ofColor::orange);
+    glider3 = new patternDetect("glider3", grid2, patGlider3, ofColor::yellowGreen);
+  
+    line5 = new patternDetect("line5", grid2, pat3, ofColor::powderBlue);
 }
 
 

@@ -13,8 +13,8 @@ resPattern patternDetect::detection(cell **grid, int rows, int cols) {
     resPattern res;
     
     /* これからc++に移植する */
-    int patternRow_ = this->mPattern.patternGrid[1];
-    int patternCol_ = this->mPattern.patternGrid[0];
+    int patternRow_ = this->mPattern.patternGrid[0];
+    int patternCol_ = this->mPattern.patternGrid[1];
 
     for ( int i = 0; i <= cols - patternCol_; i++ ) {  // オフセットを気にしている
         for ( int j = 0; j <= rows - patternRow_; j++ ) {  // オフセットを気にしつつ二次配列をぶん回す
@@ -26,7 +26,7 @@ resPattern patternDetect::detection(cell **grid, int rows, int cols) {
 
                     // オフセット分ふくめたデータとパターンが一致しなければフラグを0にしてbreakする
                     // パターンについては一次配列で渡されてきた、ので後半の演算はこのようになっていると
-                    if ( grid[i + k][j + l].currState != this->mPattern.pattern[patternCol_ * k + l ] ) {
+                    if ( grid[i + k][j + l].currState != this->mPattern.pattern[patternCol_ * l + k ] ) {
                         matchFlag_ = 0;
                         break;
                     }
@@ -44,7 +44,7 @@ resPattern patternDetect::detection(cell **grid, int rows, int cols) {
         }
 
     }
-    res.patternName =this->mPattern.name;
+    res.mPattern =this->mPattern;
     return res;
 }
 

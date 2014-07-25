@@ -26,12 +26,14 @@ struct cell {
 
 struct matchPattern {
   string name;
+  ofColor color;
   int patternGrid[2]; // ポインタ指定するとこけなかった 謎
   int *pattern;
 };
 
 struct resPattern {
-  string patternName;
+//  string patternName;
+  matchPattern mPattern;
 	vector<int> x;
   vector<int> y;
 };
@@ -48,7 +50,7 @@ public:
   void clear();
   void patternMapping();
   void oscSending(vector<resPattern> &datas);
-  void drawingResPatterns(vector<resPattern> &datas, matchPattern &mPattern, ofColor paramsColor);
+  void drawingResPatterns(vector<resPattern> &datas);
   void pause();
   
   void keyPressed(int key);
