@@ -163,16 +163,16 @@ void gameOfLife::draw() {
 			ofNoFill();
 //			ofRect(i*cellWidth, j*cellHeight, cellWidth, cellHeight);
       if (thisCell.currState == true) {
-				ofSetColor(thisCell.color.r, thisCell.color.g, thisCell.color.b, 30);
+				ofSetColor(thisCell.color.r, thisCell.color.g, thisCell.color.b, 60);
 				ofFill();
-        myImage.ofImage_::draw((float)(i*cellWidth), (float)(j*cellHeight), cellWidth*2.0, cellHeight*2.0);
-  			ofRect(i*cellWidth, j*cellHeight, cellWidth, cellHeight);
+        myImage.ofImage_::draw((float)(i*cellWidth), (float)(j*cellHeight), cellWidth*2.3, cellHeight*2.3);
+//  			ofRect(i*cellWidth, j*cellHeight, cellWidth, cellHeight);
 				ofNoFill();
 			}
 		}
 	}
-  /*パターン検出インスタンスの実行メソッド いつもはしたのif文のなかに入れておく*/
-  
+
+
   if (ofGetFrameNum() % TICK_INTERVAL == 0 && active) {
     /*レスデータはここでクリアする*/
     drawingResPatterns(datas);
@@ -199,8 +199,8 @@ void gameOfLife::drawingResPatterns(vector<resPattern> &datas) {
               
               ofSetColor(resData->mPattern.color.r, resData->mPattern.color.g, resData->mPattern.color.b, 200);
               ofFill();
-              //myImage.ofImage_::draw((float)((i + resData->x.at(h)) * cellWidth), (float)((j + resData->y.at(h)) * cellHeight), cellWidth*3.0, cellHeight*3.0);
-              ofRect( (i + resData->x.at(h)) * cellWidth, (j + resData->y.at(h)) * cellHeight, cellWidth, cellHeight);
+              myImage.ofImage_::draw((float)((i + resData->x.at(h)) * cellWidth) - cellWidth / 2, (float)((j + resData->y.at(h)) * cellHeight) - cellHeight / 2, cellWidth*3.0, cellHeight*3.0);
+//              ofRect( (i + resData->x.at(h)) * cellWidth, (j + resData->y.at(h)) * cellHeight, cellWidth, cellHeight);
 //              ofNoFill();
             }
           }
@@ -239,14 +239,14 @@ void gameOfLife::patternMapping() {
     int patGlider2[] = {0, 0, 1, 1, 0, 1, 0, 1, 1};
     int patGlider3[] = {1, 0, 0, 0, 1, 1, 1, 1, 0};
   
-    blink1 = new patternDetect("blink1", grid2, pat1, ofColor::green);
-    blink2 = new patternDetect("blink2", grid2, pat2, ofColor::blue);
+    blink1 = new patternDetect("blink1", grid2, pat1, ofColor::cyan);
+    blink2 = new patternDetect("blink2", grid2, pat2, ofColor::cyan);
   
-    glider1 = new patternDetect("glider1", grid2, patGlider1, ofColor::red);
-    glider2 = new patternDetect("glider2", grid2, patGlider2, ofColor::orange);
-    glider3 = new patternDetect("glider3", grid2, patGlider3, ofColor::yellowGreen);
+    glider1 = new patternDetect("glider1", grid2, patGlider1, ofColor::cyan);
+    glider2 = new patternDetect("glider2", grid2, patGlider2, ofColor::cyan);
+    glider3 = new patternDetect("glider3", grid2, patGlider3, ofColor::cyan);
   
-    line5 = new patternDetect("line5", grid2, pat3, ofColor::powderBlue);
+    line5 = new patternDetect("line5", grid2, pat3, ofColor::cyan);
 }
 
 
