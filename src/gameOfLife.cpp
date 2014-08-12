@@ -172,15 +172,11 @@ void gameOfLife::draw() {
 		}
 	}
   /*パターン検出インスタンスの実行メソッド いつもはしたのif文のなかに入れておく*/
-  drawingResPatterns(datas);
-  drawingResPatterns(datas);
-  drawingResPatterns(datas);
-  drawingResPatterns(datas);
-  drawingResPatterns(datas);
-  ofEnableBlendMode(OF_BLENDMODE_ALPHA);
   
   if (ofGetFrameNum() % TICK_INTERVAL == 0 && active) {
     /*レスデータはここでクリアする*/
+    drawingResPatterns(datas);
+    ofEnableBlendMode(OF_BLENDMODE_ALPHA);
     datas.clear();
   }
 }
@@ -201,7 +197,7 @@ void gameOfLife::drawingResPatterns(vector<resPattern> &datas) {
               /*検出描画チェックログ よくつかう*/
 //              cout << resData->mPattern.name << endl;
               
-              ofSetColor(resData->mPattern.color.r, resData->mPattern.color.g, resData->mPattern.color.b, 30);
+              ofSetColor(resData->mPattern.color.r, resData->mPattern.color.g, resData->mPattern.color.b, 200);
               ofFill();
               //myImage.ofImage_::draw((float)((i + resData->x.at(h)) * cellWidth), (float)((j + resData->y.at(h)) * cellHeight), cellWidth*3.0, cellHeight*3.0);
               ofRect( (i + resData->x.at(h)) * cellWidth, (j + resData->y.at(h)) * cellHeight, cellWidth, cellHeight);
