@@ -11,6 +11,7 @@
 
 #include "ofMain.h"
 #include "ofxOsc.h"
+#include "ofxMaxim.h"
 
 
 #define HOST "localhost" //送信先ホストのIPを設定

@@ -22,6 +22,13 @@
 		ADE367465D2A8EBAD4C7A8D9 /* IpEndpointName.cpp in Sources */ = {isa = PBXBuildFile; fileRef = ADD194746185E2DA11468377 /* IpEndpointName.cpp */; };
 		BBAB23CB13894F3D00AA2426 /* GLUT.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = BBAB23BE13894E4700AA2426 /* GLUT.framework */; };
 		C4782ECC372420ACE0615B74 /* OscPrintReceivedElements.cpp in Sources */ = {isa = PBXBuildFile; fileRef = BC8881B3C8C0A1C45F042E7A /* OscPrintReceivedElements.cpp */; };
+		C530ADBA1999FDF500F5A87E /* fft.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C530ADAB1999FDF500F5A87E /* fft.cpp */; };
+		C530ADBB1999FDF500F5A87E /* maxiAtoms.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C530ADAD1999FDF500F5A87E /* maxiAtoms.cpp */; };
+		C530ADBC1999FDF500F5A87E /* maxiFFT.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C530ADAF1999FDF500F5A87E /* maxiFFT.cpp */; };
+		C530ADBD1999FDF500F5A87E /* maxiGrains.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C530ADB11999FDF500F5A87E /* maxiGrains.cpp */; };
+		C530ADBE1999FDF500F5A87E /* maxiMFCC.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C530ADB31999FDF500F5A87E /* maxiMFCC.cpp */; };
+		C530ADBF1999FDF500F5A87E /* maximilian.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C530ADB51999FDF500F5A87E /* maximilian.cpp */; };
+		C530ADC01999FDF500F5A87E /* stb_vorbis.c in Sources */ = {isa = PBXBuildFile; fileRef = C530ADB81999FDF500F5A87E /* stb_vorbis.c */; };
 		C557AC471975063000E0DC54 /* gameOfLife.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C557AC451975063000E0DC54 /* gameOfLife.cpp */; };
 		C557AC4A1975063900E0DC54 /* patterns.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C557AC481975063900E0DC54 /* patterns.cpp */; };
 		C557AC521976298E00E0DC54 /* patternDetect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C557AC511976298E00E0DC54 /* patternDetect.cpp */; };
@@ -103,6 +110,22 @@
 		BBAB23BE13894E4700AA2426 /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = ../../../libs/glut/lib/osx/GLUT.framework; sourceTree = "<group>"; };
 		BC8881B3C8C0A1C45F042E7A /* OscPrintReceivedElements.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = OscPrintReceivedElements.cpp; path = ../../../addons/ofxOsc/libs/oscpack/src/osc/OscPrintReceivedElements.cpp; sourceTree = SOURCE_ROOT; };
 		C2FAC65C491D4231379F3298 /* ofxOscReceiver.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxOscReceiver.cpp; path = ../../../addons/ofxOsc/src/ofxOscReceiver.cpp; sourceTree = SOURCE_ROOT; };
+		C530ADA91999FDF500F5A87E /* ofxMaxim.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ofxMaxim.h; sourceTree = "<group>"; };
+		C530ADAB1999FDF500F5A87E /* fft.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = fft.cpp; sourceTree = "<group>"; };
+		C530ADAC1999FDF500F5A87E /* fft.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = fft.h; sourceTree = "<group>"; };
+		C530ADAD1999FDF500F5A87E /* maxiAtoms.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = maxiAtoms.cpp; sourceTree = "<group>"; };
+		C530ADAE1999FDF500F5A87E /* maxiAtoms.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = maxiAtoms.h; sourceTree = "<group>"; };
+		C530ADAF1999FDF500F5A87E /* maxiFFT.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = maxiFFT.cpp; sourceTree = "<group>"; };
+		C530ADB01999FDF500F5A87E /* maxiFFT.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = maxiFFT.h; sourceTree = "<group>"; };
+		C530ADB11999FDF500F5A87E /* maxiGrains.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = maxiGrains.cpp; sourceTree = "<group>"; };
+		C530ADB21999FDF500F5A87E /* maxiGrains.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = maxiGrains.h; sourceTree = "<group>"; };
+		C530ADB31999FDF500F5A87E /* maxiMFCC.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = maxiMFCC.cpp; sourceTree = "<group>"; };
+		C530ADB41999FDF500F5A87E /* maxiMFCC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = maxiMFCC.h; sourceTree = "<group>"; };
+		C530ADB51999FDF500F5A87E /* maximilian.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = maximilian.cpp; sourceTree = "<group>"; };
+		C530ADB61999FDF500F5A87E /* maximilian.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = maximilian.h; sourceTree = "<group>"; };
+		C530ADB71999FDF500F5A87E /* sineTable.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = sineTable.h; sourceTree = "<group>"; };
+		C530ADB81999FDF500F5A87E /* stb_vorbis.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = stb_vorbis.c; sourceTree = "<group>"; };
+		C530ADB91999FDF500F5A87E /* stb_vorbis.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = stb_vorbis.h; sourceTree = "<group>"; };
 		C557AC451975063000E0DC54 /* gameOfLife.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = gameOfLife.cpp; sourceTree = "<group>"; };
 		C557AC461975063000E0DC54 /* gameOfLife.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gameOfLife.h; sourceTree = "<group>"; };
 		C557AC481975063900E0DC54 /* patterns.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = patterns.cpp; sourceTree = "<group>"; };
@@ -221,6 +244,7 @@
 		BB4B014C10F69532006C3DED /* addons */ = {
 			isa = PBXGroup;
 			children = (
+				C530ADA71999FDF500F5A87E /* ofxMaxim */,
 				E6053AB7FEC63D5F83825B88 /* ofxOsc */,
 			);
 			name = addons;
@@ -272,6 +296,47 @@
 				9F7986DC4EB05E75FCE2C777 /* ofxOscSender.h */,
 			);
 			name = src;
+			sourceTree = "<group>";
+		};
+		C530ADA71999FDF500F5A87E /* ofxMaxim */ = {
+			isa = PBXGroup;
+			children = (
+				C530ADA81999FDF500F5A87E /* src */,
+				C530ADAA1999FDF500F5A87E /* libs */,
+			);
+			name = ofxMaxim;
+			sourceTree = "<group>";
+		};
+		C530ADA81999FDF500F5A87E /* src */ = {
+			isa = PBXGroup;
+			children = (
+				C530ADA91999FDF500F5A87E /* ofxMaxim.h */,
+			);
+			name = src;
+			path = ../../../addons/ofxMaxim/src;
+			sourceTree = "<group>";
+		};
+		C530ADAA1999FDF500F5A87E /* libs */ = {
+			isa = PBXGroup;
+			children = (
+				C530ADAB1999FDF500F5A87E /* fft.cpp */,
+				C530ADAC1999FDF500F5A87E /* fft.h */,
+				C530ADAD1999FDF500F5A87E /* maxiAtoms.cpp */,
+				C530ADAE1999FDF500F5A87E /* maxiAtoms.h */,
+				C530ADAF1999FDF500F5A87E /* maxiFFT.cpp */,
+				C530ADB01999FDF500F5A87E /* maxiFFT.h */,
+				C530ADB11999FDF500F5A87E /* maxiGrains.cpp */,
+				C530ADB21999FDF500F5A87E /* maxiGrains.h */,
+				C530ADB31999FDF500F5A87E /* maxiMFCC.cpp */,
+				C530ADB41999FDF500F5A87E /* maxiMFCC.h */,
+				C530ADB51999FDF500F5A87E /* maximilian.cpp */,
+				C530ADB61999FDF500F5A87E /* maximilian.h */,
+				C530ADB71999FDF500F5A87E /* sineTable.h */,
+				C530ADB81999FDF500F5A87E /* stb_vorbis.c */,
+				C530ADB91999FDF500F5A87E /* stb_vorbis.h */,
+			);
+			name = libs;
+			path = ../../../addons/ofxMaxim/libs;
 			sourceTree = "<group>";
 		};
 		D27B2221A225CA523C019676 /* src */ = {
@@ -448,21 +513,28 @@
 			buildActionMask = 2147483647;
 			files = (
 				E4B69E200A3A1BDC003C02F2 /* main.cpp in Sources */,
+				C530ADBA1999FDF500F5A87E /* fft.cpp in Sources */,
 				72A929D3561B8232A182ABFC /* ofxOscBundle.cpp in Sources */,
 				5864AD82E20F15536D054EA3 /* ofxOscMessage.cpp in Sources */,
+				C530ADBD1999FDF500F5A87E /* maxiGrains.cpp in Sources */,
 				4ADB88E2FB52E76A471065DE /* ofxOscParameterSync.cpp in Sources */,
 				640279EE111671BD026CB013 /* ofxOscReceiver.cpp in Sources */,
 				8F5205AEF8861EF234F0651A /* ofxOscSender.cpp in Sources */,
+				C530ADBF1999FDF500F5A87E /* maximilian.cpp in Sources */,
+				C530ADBC1999FDF500F5A87E /* maxiFFT.cpp in Sources */,
+				C530ADC01999FDF500F5A87E /* stb_vorbis.c in Sources */,
 				ADE367465D2A8EBAD4C7A8D9 /* IpEndpointName.cpp in Sources */,
 				C557AC521976298E00E0DC54 /* patternDetect.cpp in Sources */,
 				C557AC4A1975063900E0DC54 /* patterns.cpp in Sources */,
 				67FE4C7B15C2F0478C8126C2 /* NetworkingUtils.cpp in Sources */,
+				C530ADBE1999FDF500F5A87E /* maxiMFCC.cpp in Sources */,
 				510CAFE035E576A4E1502D52 /* UdpSocket.cpp in Sources */,
 				A29D8C96AE042ECEAA1BD4F3 /* NetworkingUtilsWin.cpp in Sources */,
 				28090DEB5109115003E8F1C5 /* UdpSocketWin.cpp in Sources */,
 				62545D179C94265CA1389D4A /* OscOutboundPacketStream.cpp in Sources */,
 				C4782ECC372420ACE0615B74 /* OscPrintReceivedElements.cpp in Sources */,
 				0546D1A38E13BD319CC9755B /* OscReceivedElements.cpp in Sources */,
+				C530ADBB1999FDF500F5A87E /* maxiAtoms.cpp in Sources */,
 				879A251454401BC0B6E4F238 /* OscTypes.cpp in Sources */,
 				C557AC471975063000E0DC54 /* gameOfLife.cpp in Sources */,
 			);
@@ -644,6 +716,7 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_52)",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)Debug";
+				USER_HEADER_SEARCH_PATHS = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -729,6 +802,7 @@
 					"$(LIBRARY_SEARCH_PATHS_QUOTED_FOR_TARGET_51)",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				USER_HEADER_SEARCH_PATHS = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
