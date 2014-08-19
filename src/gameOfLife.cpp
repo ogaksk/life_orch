@@ -88,35 +88,35 @@ void gameOfLife::update() {
       
       datas.push_back(line5->detection(grid, rows, cols));
 
-      oscSending(datas);
+//      oscSending(datas);
     }
 }
 
 /*今は参照渡し風に書いている　複数のインスタンスを渡してバグが生まれたら対応*/
-void gameOfLife::oscSending(vector<resPattern> &datas) {
-  for(resData = datas.begin(); resData != datas.end(); ++resData) {
-    std::stringstream result_x, result_y;
-    std::copy(&*resData->x.begin(), &*resData->x.end(), std::ostream_iterator<int>(result_x, ","));
-    std::copy(&*resData->y.begin(), &*resData->y.end(), std::ostream_iterator<int>(result_y, ","));
-    
-    ofxOscMessage mx, my;
-    string textName = "/";
-    textName += resData->mPattern.name;
-    textName += "/";
-    string textX = textName + "x";
-    string textY = textName + "y";
-    
-    mx.setAddress(textX);
-    mx.addStringArg( result_x.str() );
-    
-    my.setAddress( textY );
-    my.addStringArg( result_y.str() );
-    
-    //メッセージを送信
-    sender.sendMessage( mx );
-    sender.sendMessage( my );
-  }
-}
+//void gameOfLife::oscSending(vector<resPattern> &datas) {
+//  for(resData = datas.begin(); resData != datas.end(); ++resData) {
+//    std::stringstream result_x, result_y;
+//    std::copy(&*resData->x.begin(), &*resData->x.end(), std::ostream_iterator<int>(result_x, ","));
+//    std::copy(&*resData->y.begin(), &*resData->y.end(), std::ostream_iterator<int>(result_y, ","));
+//    
+//    ofxOscMessage mx, my;
+//    string textName = "/";
+//    textName += resData->mPattern.name;
+//    textName += "/";
+//    string textX = textName + "x";
+//    string textY = textName + "y";
+//    
+//    mx.setAddress(textX);
+//    mx.addStringArg( result_x.str() );
+//    
+//    my.setAddress( textY );
+//    my.addStringArg( result_y.str() );
+//    
+//    //メッセージを送信
+//    sender.sendMessage( mx );
+//    sender.sendMessage( my );
+//  }
+//}
 
 
 void gameOfLife::tick() {
@@ -263,22 +263,50 @@ void gameOfLife::audioSetup(){
   lAudio.assign(initialBufferSize, 0.0);
 	rAudio.assign(initialBufferSize, 0.0);
   
+  /*frequencyのマッピング*/
+  freqMap["blink1"] = 493.883301;
+  freqMap["blink2"] = 329.627563;
+  
+  
   mode = 0;
 
 }
 
 void gameOfLife::audioOut(float *output, int bufferSize, int nChannels) {
   for (int i = 0; i < bufferSize; i++) {
-    float freq = 440;
-    float pan = 1.0;
-    wave = osc.sinewave(freq);
-    mymix.stereo(wave, outputs, pan);
-    lAudio[i] = output[i * nChannels] = outputs[0];
-    rAudio[i] = output[i * nChannels + 1] = outputs[1];
-  }
+//    for(resData = datas.begin(); resData != datas.end(); ++resData) {
+//      float career = patTofreq(resData->mPattern.name);
+//      for(int i = 0; i < resData->x.size(); i++) {
+//        wave = osc.sinewave(career) * resData->y[i] * 0.01;
+//        float pan = 1 / resData->x[i];
+//        mymix.stereo(wave, outputs, pan);
+//      }
 
+//
+//      lAudio[i] = output[i * nChannels] = outputs[0];
+//      rAudio[i] = output[i * nChannels + 1] = outputs[1];
+//    }
+    
+    if (ofGetFrameNum() % TICK_INTERVAL == 0 && active) {
+      float career = patTofreq("blink1");
+      wave = osc.sinewave(career);
+      
+      mymix.stereo(wave, outputs, 0.5);
+      lAudio[i] = output[i * nChannels] = outputs[0];
+      rAudio[i] = output[i * nChannels + 1] = outputs[1];
+    }
+  }
 }
 
+float gameOfLife::patTofreq(string patName){
+  if (freqMap.find(patName) == freqMap.end()) {
+    // not found
+    return 0.0;
+  } else {
+    // found
+    return freqMap[patName];
+  }
+}
 
 
 /**

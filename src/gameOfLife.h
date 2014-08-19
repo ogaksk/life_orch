@@ -60,18 +60,23 @@ public:
   
   bool active;
   
-
-  // ofxMaximまわり変数宣言
+  /************************/
+  // ofxMaximまわり変数宣言 //
+  /***********************/
   void audioOut(float * output, int bufferSize, int nChannels);
   void audioSetup();
+  float patTofreq(string patName);
   int initialBufferSize;
   int sampleRate;
   int mode;
   double wave,sample,outputs[2];
   ofxMaxiMix mymix;
   ofxMaxiOsc osc;
+  vector <ofxMaxiOsc> oscbank;
   vector <float> lAudio;
   vector <float> rAudio;
+  
+  std::map<std::string, float> freqMap;
   
   
 private:
