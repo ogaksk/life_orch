@@ -15,7 +15,7 @@ const int WIDTH = 800;
 const int HEIGHT = 500;
 const int CELLSIZE = 6;
 const int FULLSCREEN_CELLSIZE = 8;
-const int TICK_INTERVAL = 60;
+const int TICK_INTERVAL = 6;
 const int FRAMERATE = 60;
 
 /*//////////////////////////////////*/
@@ -78,7 +78,6 @@ void gameOfLife::init(int width, int height, int cellSize) {
 void gameOfLife::update() {
     if (ofGetFrameNum() % TICK_INTERVAL == 0 && active) {
       tick();
-      cout << "a" << endl;
       datas.push_back(blink1->detection(grid, rows, cols));
       datas.push_back(blink2->detection(grid, rows, cols));
       
@@ -142,6 +141,7 @@ void gameOfLife::tick() {
         }
 	}
 	makeNextStateCurrent();
+  audioTick = true;
 }
 
 void gameOfLife::makeNextStateCurrent() {
@@ -273,6 +273,7 @@ void gameOfLife::audioSetup(){
 }
 
 void gameOfLife::audioOut(float *output, int bufferSize, int nChannels) {
+
   for (int i = 0; i < bufferSize; i++) {
 //    for(resData = datas.begin(); resData != datas.end(); ++resData) {
 //      float career = patTofreq(resData->mPattern.name);
@@ -288,23 +289,20 @@ void gameOfLife::audioOut(float *output, int bufferSize, int nChannels) {
 //    }
     
     ADSRout=ADSR.line(6, adsrEnv);
-
-//    if (ofGetFrameNum() % TICK_INTERVAL == 0 && active) {
     
-      currentCount=(int)timer.phasor(0.5);//this sets up a metronome that ticks every 2 seconds
-      if (lastCount!=currentCount) {//if we have a new timer int this sample, play the sound
-        ADSR.trigger(0, adsrEnv[0]);//trigger the envelope from the start
-        cout << "tick\n";//the clock ticks
-        lastCount=0;//set lastCount to 0
-      }
-      float career = patTofreq("blink1");
-      wave = osc.sinewave(career);
+    if (audioTick == true) {
+      cout << "b\n";
+      ADSR.trigger(0, adsrEnv[0]);//trigger the envelope from the start
+      audioTick = false;
+    }
+
+    float career = patTofreq("blink1");
+    wave = osc.sinewave(career);
 
 
-      mymix.stereo(wave, outputs, 0.5);
-      lAudio[i] = output[i * nChannels] = outputs[0] * ADSRout;
-      rAudio[i] = output[i * nChannels + 1] = outputs[1] * ADSRout;
-//    }
+    mymix.stereo(wave, outputs, 0.5);
+    lAudio[i] = output[i * nChannels] = outputs[0] * ADSRout;
+    rAudio[i] = output[i * nChannels + 1] = outputs[1] * ADSRout;
   }
 }
 

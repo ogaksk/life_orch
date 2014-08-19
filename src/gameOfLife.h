@@ -73,15 +73,13 @@ public:
   ofxMaxiMix mymix;
   ofxMaxiOsc osc;
   ofxMaxiEnvelope ADSR;
-  double adsrEnv[6]={0, 3, 0.3, 20, 0, 200};
+  double adsrEnv[6]={0, 3, 0.1, 10, 0, 40};
   vector <ofxMaxiOsc> oscbank;
   vector <float> lAudio;
   vector <float> rAudio;
   
   std::map<std::string, float> freqMap;
-  
-  maxiOsc timer;
-  int currentCount,lastCount;
+  bool audioTick = false;
   
 private:
   cell **grid;
