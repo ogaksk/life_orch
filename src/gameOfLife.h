@@ -69,15 +69,19 @@ public:
   int initialBufferSize;
   int sampleRate;
   int mode;
-  double wave,sample,outputs[2];
+  double wave, sample, ADSRout, outputs[2];
   ofxMaxiMix mymix;
   ofxMaxiOsc osc;
+  ofxMaxiEnvelope ADSR;
+  double adsrEnv[6]={0, 3, 0.3, 20, 0, 200};
   vector <ofxMaxiOsc> oscbank;
   vector <float> lAudio;
   vector <float> rAudio;
   
   std::map<std::string, float> freqMap;
   
+  maxiOsc timer;
+  int currentCount,lastCount;
   
 private:
   cell **grid;
