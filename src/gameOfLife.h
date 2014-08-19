@@ -60,6 +60,20 @@ public:
   
   bool active;
   
+
+  // ofxMaximまわり変数宣言
+  void audioOut(float * output, int bufferSize, int nChannels);
+  void audioSetup();
+  int initialBufferSize;
+  int sampleRate;
+  int mode;
+  double wave,sample,outputs[2];
+  ofxMaxiMix mymix;
+  ofxMaxiOsc osc;
+  vector <float> lAudio;
+  vector <float> rAudio;
+  
+  
 private:
   cell **grid;
   float cellWidth, cellHeight;

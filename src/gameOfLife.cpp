@@ -54,6 +54,7 @@ void gameOfLife::setup() {
   myImage.loadImage("circleAlpha.tif");
   
   sender.setup(HOST, PORT);
+  audioSetup();
   
 }
 
@@ -114,9 +115,7 @@ void gameOfLife::oscSending(vector<resPattern> &datas) {
     //メッセージを送信
     sender.sendMessage( mx );
     sender.sendMessage( my );
-  };
-  
-
+  }
 }
 
 
@@ -248,6 +247,38 @@ void gameOfLife::patternMapping() {
   
     line5 = new patternDetect("line5", grid2, pat3, ofColor::cyan);
 }
+
+
+/*****************************
+ * オーディオ出力
+ *****************************/
+
+void gameOfLife::audioSetup(){
+  
+  sampleRate 			= 44100; /* Sampling Rate */
+	initialBufferSize	= 512;	/* Buffer Size. you have to fill this buffer with sound*/
+	
+	ofSoundStreamSetup(2,0,this, sampleRate, initialBufferSize, 4);
+  
+  lAudio.assign(initialBufferSize, 0.0);
+	rAudio.assign(initialBufferSize, 0.0);
+  
+  mode = 0;
+
+}
+
+void gameOfLife::audioOut(float *output, int bufferSize, int nChannels) {
+  for (int i = 0; i < bufferSize; i++) {
+    float freq = 440;
+    float pan = 1.0;
+    wave = osc.sinewave(freq);
+    mymix.stereo(wave, outputs, pan);
+    lAudio[i] = output[i * nChannels] = outputs[0];
+    rAudio[i] = output[i * nChannels + 1] = outputs[1];
+  }
+
+}
+
 
 
 /**
