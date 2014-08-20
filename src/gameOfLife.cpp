@@ -304,7 +304,12 @@ void gameOfLife::audioOut(float *output, int bufferSize, int nChannels) {
       for (int k = 0; k < 6; k ++ ) {
         for(int l = 0; l < datas[k].x.size(); l ++ ) {
           float career = patTofreq(datas[k].mPattern.name);
-          currentTone[(k * l) + l] = career;
+          
+          /*決めウチのオシレーター数を超えないようのif文*/
+          if ((k * l) + l < 20) {
+            currentTone[(k * l) + l] = career;
+          }
+          
 
 //         wave = oscbank[(k * l) + l].sinewave(440);
         }
