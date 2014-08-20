@@ -26,6 +26,7 @@ patternDetect *blink2;
 patternDetect *glider1;
 patternDetect *glider2;
 patternDetect *glider3;
+patternDetect *glider4;
 patternDetect *line5;
 
 vector<resPattern> datas;
@@ -84,6 +85,7 @@ void gameOfLife::update() {
       datas.push_back(glider1->detection(grid, rows, cols));
       datas.push_back(glider2->detection(grid, rows, cols));
       datas.push_back(glider3->detection(grid, rows, cols));
+      datas.push_back(glider4->detection(grid, rows, cols));
       
       datas.push_back(line5->detection(grid, rows, cols));
       audioTick = true;
@@ -238,6 +240,7 @@ void gameOfLife::patternMapping() {
     int patGlider1[] = {0, 1, 0, 0, 0, 1, 1, 1, 1};
     int patGlider2[] = {0, 0, 1, 1, 0, 1, 0, 1, 1};
     int patGlider3[] = {1, 0, 0, 0, 1, 1, 1, 1, 0};
+    int patGlider4[] = {0, 0, 1, 1, 1, 0, 0, 1, 1};
   
     blink1 = new patternDetect("blink1", grid2, pat1, ofColor::cyan);
     blink2 = new patternDetect("blink2", grid2, pat2, ofColor::cyan);
@@ -245,6 +248,7 @@ void gameOfLife::patternMapping() {
     glider1 = new patternDetect("glider1", grid2, patGlider1, ofColor::cyan);
     glider2 = new patternDetect("glider2", grid2, patGlider2, ofColor::cyan);
     glider3 = new patternDetect("glider3", grid2, patGlider3, ofColor::cyan);
+    glider4 = new patternDetect("glider4", grid2, patGlider4, ofColor::cyan);
   
     line5 = new patternDetect("line5", grid2, pat3, ofColor::cyan);
 }
@@ -268,13 +272,19 @@ void gameOfLife::audioSetup(){
   freqMap["blink1"] = 493.883301;
   freqMap["blink2"] = 329.627563;
   
+  freqMap["glider1"] = 277.182617;
+  freqMap["glider2"] = 369.994415;
+  freqMap["glider3"] = 415.304688;
+  freqMap["glider4"] = 440.0;
+  
+  freqMap["line5"] = 554.365234;
   
   mode = 0;
 
 }
 
 void gameOfLife::audioOut(float *output, int bufferSize, int nChannels) {
-  float currentTone[20];
+  float currentTone[polyNum];
   
 
   for (int i = 0; i < bufferSize; i++) {
@@ -296,17 +306,17 @@ void gameOfLife::audioOut(float *output, int bufferSize, int nChannels) {
       wave = 0;
       
       
-      for(int j = 0; j < 20; j ++ ) {
+      for(int j = 0; j < polyNum; j ++ ) {
         ADSR[j].trigger(0, adsrEnv[0]);
         currentTone[j] = 0;
       }
       
-      for (int k = 0; k < 6; k ++ ) {
+      for (int k = 0; k < 7; k ++ ) {
         for(int l = 0; l < datas[k].x.size(); l ++ ) {
           float career = patTofreq(datas[k].mPattern.name);
           
           /*決めウチのオシレーター数を超えないようのif文*/
-          if ((k * l) + l < 20) {
+          if ((k * l) + l < polyNum) {
             currentTone[(k * l) + l] = career;
           }
           
@@ -321,7 +331,7 @@ void gameOfLife::audioOut(float *output, int bufferSize, int nChannels) {
       audioTick = false;
     }
     
-    for(int m = 0; m < 20; m ++ ) {
+    for(int m = 0; m < polyNum; m ++ ) {
       ADSRout = ADSR[m].line(6, adsrEnv);
       if (currentTone[m] != 0) {
         wave += oscbank[m].sinewave(currentTone[m]);

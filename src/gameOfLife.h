@@ -79,8 +79,9 @@ public:
   
   std::map<std::string, float> freqMap;
   bool audioTick = false;
-  ofxMaxiOsc oscbank[20];
-  ofxMaxiEnvelope ADSR[20];
+  int polyNum = 30;
+  ofxMaxiOsc oscbank[30];
+  ofxMaxiEnvelope ADSR[30];
   
 private:
   cell **grid;
