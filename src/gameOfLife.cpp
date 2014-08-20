@@ -86,7 +86,7 @@ void gameOfLife::update() {
       datas.push_back(glider3->detection(grid, rows, cols));
       
       datas.push_back(line5->detection(grid, rows, cols));
-
+      audioTick = true;
 //      oscSending(datas);
     }
 }
@@ -141,7 +141,6 @@ void gameOfLife::tick() {
         }
 	}
 	makeNextStateCurrent();
-  audioTick = true;
 }
 
 void gameOfLife::makeNextStateCurrent() {
@@ -173,9 +172,11 @@ void gameOfLife::draw() {
 
 
   if (ofGetFrameNum() % TICK_INTERVAL == 0 && active) {
-    /*レスデータはここでクリアする*/
+
     drawingResPatterns(datas);
     ofEnableBlendMode(OF_BLENDMODE_ALPHA);
+    
+    /*レスデータはここでクリアする*/
     datas.clear();
   }
 }
@@ -288,30 +289,53 @@ void gameOfLife::audioOut(float *output, int bufferSize, int nChannels) {
 //      rAudio[i] = output[i * nChannels + 1] = outputs[1];
 //    }
     
-    ADSRout=ADSR.line(6, adsrEnv);
-    
+
     if (audioTick == true) {
-      cout << "b\n";
-      ADSR.trigger(0, adsrEnv[0]);//trigger the envelope from the start
+      wave = 0;
+      
+      
+      for(int j = 0; j < 20; j ++ ) {
+        ADSR[j].trigger(0, adsrEnv[0]);
+      }
+      
+      for (int k = 0; k < 6; k ++ ) {
+        for(int l = 0; l < datas[k].x.size(); l ++ ) {
+
+
+//         wave = oscbank[(k * l) + l].sinewave(440);
+        }
+      }
+      
+
+
+//      float career = patTofreq(resData->mPattern.name);
       audioTick = false;
     }
-
-    float career = patTofreq("blink1");
-    wave = osc.sinewave(career);
-
+    
+    for(int m = 0; m < 20; m ++ ) {
+      ADSRout = ADSR[m].line(6, adsrEnv);
+      wave += oscbank[m].sinewave(480);
+    }
 
     mymix.stereo(wave, outputs, 0.5);
+      // ここで周波数いじるとうまくでる
+
+//  wave = osc.sinewave(440);
+
     lAudio[i] = output[i * nChannels] = outputs[0] * ADSRout;
     rAudio[i] = output[i * nChannels + 1] = outputs[1] * ADSRout;
+    
   }
 }
 
 float gameOfLife::patTofreq(string patName){
   if (freqMap.find(patName) == freqMap.end()) {
     // not found
+
     return 0.0;
   } else {
     // found
+
     return freqMap[patName];
   }
 }

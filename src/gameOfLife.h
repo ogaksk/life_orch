@@ -72,14 +72,15 @@ public:
   double wave, sample, ADSRout, outputs[2];
   ofxMaxiMix mymix;
   ofxMaxiOsc osc;
-  ofxMaxiEnvelope ADSR;
-  double adsrEnv[6]={0, 3, 0.1, 10, 0, 40};
-  vector <ofxMaxiOsc> oscbank;
+  double adsrEnv[6]={0, 3, 0.01, 10, 0, 40};
+//  vector <ofxMaxiOsc> oscbank;
   vector <float> lAudio;
   vector <float> rAudio;
   
   std::map<std::string, float> freqMap;
   bool audioTick = false;
+  ofxMaxiOsc oscbank[20];
+  ofxMaxiEnvelope ADSR[20];
   
 private:
   cell **grid;
