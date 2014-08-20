@@ -274,6 +274,8 @@ void gameOfLife::audioSetup(){
 }
 
 void gameOfLife::audioOut(float *output, int bufferSize, int nChannels) {
+  float currentTone[20];
+  
 
   for (int i = 0; i < bufferSize; i++) {
 //    for(resData = datas.begin(); resData != datas.end(); ++resData) {
@@ -296,11 +298,13 @@ void gameOfLife::audioOut(float *output, int bufferSize, int nChannels) {
       
       for(int j = 0; j < 20; j ++ ) {
         ADSR[j].trigger(0, adsrEnv[0]);
+        currentTone[j] = 0;
       }
       
       for (int k = 0; k < 6; k ++ ) {
         for(int l = 0; l < datas[k].x.size(); l ++ ) {
-
+          float career = patTofreq(datas[k].mPattern.name);
+          currentTone[(k * l) + l] = career;
 
 //         wave = oscbank[(k * l) + l].sinewave(440);
         }
@@ -314,11 +318,10 @@ void gameOfLife::audioOut(float *output, int bufferSize, int nChannels) {
     
     for(int m = 0; m < 20; m ++ ) {
       ADSRout = ADSR[m].line(6, adsrEnv);
-      wave += oscbank[m].sinewave(480);
+      wave += oscbank[m].sinewave(currentTone[m]);
     }
 
     mymix.stereo(wave, outputs, 0.5);
-      // ここで周波数いじるとうまくでる
 
 //  wave = osc.sinewave(440);
 
