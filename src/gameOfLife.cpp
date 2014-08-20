@@ -323,7 +323,9 @@ void gameOfLife::audioOut(float *output, int bufferSize, int nChannels) {
     
     for(int m = 0; m < 20; m ++ ) {
       ADSRout = ADSR[m].line(6, adsrEnv);
-      wave += oscbank[m].sinewave(currentTone[m]);
+      if (currentTone[m] != 0) {
+        wave += oscbank[m].sinewave(currentTone[m]);
+      }
     }
 
     mymix.stereo(wave, outputs, 0.5);

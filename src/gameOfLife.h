@@ -72,7 +72,7 @@ public:
   double wave, sample, ADSRout, outputs[2];
   ofxMaxiMix mymix;
   ofxMaxiOsc osc;
-  double adsrEnv[6]={0, 3, 0.01, 10, 0, 40};
+  double adsrEnv[6]={0, 10, 0.005, 10, 0, 40};
 //  vector <ofxMaxiOsc> oscbank;
   vector <float> lAudio;
   vector <float> rAudio;
