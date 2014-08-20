@@ -258,7 +258,7 @@ void gameOfLife::patternMapping() {
  * オーディオ出力
  *****************************/
 
-void gameOfLife::audioSetup(){
+void gameOfLife::audioSetup() {
   
   sampleRate 			= 44100; /* Sampling Rate */
 	initialBufferSize	= 512;	/* Buffer Size. you have to fill this buffer with sound*/
@@ -288,7 +288,6 @@ void gameOfLife::audioOut(float *output, int bufferSize, int nChannels) {
   int currentX[polyNum]; // 発音数に応じて得れる要素数を制限する
   int currentY[polyNum]; // 発音数に応じて得れる要素数を制限する
   
-
   for (int i = 0; i < bufferSize; i++) {
 //    for(resData = datas.begin(); resData != datas.end(); ++resData) {
 //      float career = patTofreq(resData->mPattern.name);
@@ -302,7 +301,6 @@ void gameOfLife::audioOut(float *output, int bufferSize, int nChannels) {
 //      lAudio[i] = output[i * nChannels] = outputs[0];
 //      rAudio[i] = output[i * nChannels + 1] = outputs[1];
 //    }
-    
 
     if (audioTick == true) {
       wave = 0;
@@ -328,31 +326,24 @@ void gameOfLife::audioOut(float *output, int bufferSize, int nChannels) {
 //         wave = oscbank[(k * l) + l].sinewave(440);
         }
       }
-      
 
-
-//      float career = patTofreq(resData->mPattern.name);
+//    float career = patTofreq(resData->mPattern.name);
       audioTick = false;
     }
     
     for(int m = 0; m < polyNum; m ++ ) {
       ADSRout = ADSR[m].line(6, adsrEnv);
-
       if (currentTone[m] != 0) {
         wave += oscbank[m].sinewave(currentTone[m]);
-        
         mymix.stereo(wave, outputs, (1.0 / (float)(currentX[m]) ) );
       }
-      
     }
-
     lAudio[i] = output[i * nChannels] = outputs[0] * ADSRout;
     rAudio[i] = output[i * nChannels + 1] = outputs[1] * ADSRout;
-    
   }
 }
 
-float gameOfLife::patTofreq(string patName){
+float gameOfLife::patTofreq(string patName) {
   if (freqMap.find(patName) == freqMap.end()) {
     // not found
 
@@ -363,7 +354,6 @@ float gameOfLife::patTofreq(string patName){
     return freqMap[patName];
   }
 }
-
 
 /**
  * Ensure it is a valid col/row combo (on grid) and
@@ -399,7 +389,6 @@ int gameOfLife::getNumActiveNeighbors(int colIndex, int rowIndex) {
   
   return ret;
 }
-
 
 void gameOfLife::goFullScreen() {
   active = false;
