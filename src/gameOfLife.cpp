@@ -285,6 +285,8 @@ void gameOfLife::audioSetup(){
 
 void gameOfLife::audioOut(float *output, int bufferSize, int nChannels) {
   float currentTone[polyNum];
+  int currentX[polyNum]; // 発音数に応じて得れる要素数を制限する
+  int currentY[polyNum]; // 発音数に応じて得れる要素数を制限する
   
 
   for (int i = 0; i < bufferSize; i++) {
@@ -305,7 +307,6 @@ void gameOfLife::audioOut(float *output, int bufferSize, int nChannels) {
     if (audioTick == true) {
       wave = 0;
       
-      
       for(int j = 0; j < polyNum; j ++ ) {
         ADSR[j].trigger(0, adsrEnv[0]);
         currentTone[j] = 0;
@@ -318,6 +319,9 @@ void gameOfLife::audioOut(float *output, int bufferSize, int nChannels) {
           /*決めウチのオシレーター数を超えないようのif文*/
           if ((k * l) + l < polyNum) {
             currentTone[(k * l) + l] = career;
+            // ちょっと後で原因究明したいが、いったん変な値を汚く間引く
+            currentX[(k * l) + l] = datas[k].x[l] > 0 && datas[k].x[l] < 2000 ? datas[k].x[l] : 0;
+            currentY[(k * l) + l] = datas[k].y[l] > 0 && datas[k].y[l] < 2000 ? datas[k].y[l] : 0;
           }
           
 
@@ -333,14 +337,14 @@ void gameOfLife::audioOut(float *output, int bufferSize, int nChannels) {
     
     for(int m = 0; m < polyNum; m ++ ) {
       ADSRout = ADSR[m].line(6, adsrEnv);
+
       if (currentTone[m] != 0) {
         wave += oscbank[m].sinewave(currentTone[m]);
+        
+        mymix.stereo(wave, outputs, (1.0 / (float)(currentX[m]) ) );
       }
+      
     }
-
-    mymix.stereo(wave, outputs, 0.5);
-
-//  wave = osc.sinewave(440);
 
     lAudio[i] = output[i * nChannels] = outputs[0] * ADSRout;
     rAudio[i] = output[i * nChannels + 1] = outputs[1] * ADSRout;

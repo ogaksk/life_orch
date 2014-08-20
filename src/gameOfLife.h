@@ -82,6 +82,7 @@ public:
   int polyNum = 30;
   ofxMaxiOsc oscbank[30];
   ofxMaxiEnvelope ADSR[30];
+  ofxMaxiFilter vcFilter[30];
   
 private:
   cell **grid;
