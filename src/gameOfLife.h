@@ -69,10 +69,10 @@ public:
   int initialBufferSize;
   int sampleRate;
   int mode;
-  double wave, sample, ADSRout, outputs[2];
+  double wave, wave2, sample, ADSRout, outputs[2];
   ofxMaxiMix mymix;
   ofxMaxiOsc osc;
-  double adsrEnv[6]={0, 10, 0.005, 10, 0, 40};
+  double adsrEnv[6]={0, 10, 0.005, 10, 0, 20};
 //  vector <ofxMaxiOsc> oscbank;
   vector <float> lAudio;
   vector <float> rAudio;
@@ -81,8 +81,10 @@ public:
   bool audioTick = false;
   int polyNum = 30;
   ofxMaxiOsc oscbank[30];
+  ofxMaxiOsc addOsc[30];
   ofxMaxiEnvelope ADSR[30];
   ofxMaxiFilter vcFilter[30];
+  int addOscCOunter = 0;
   
 private:
   cell **grid;
