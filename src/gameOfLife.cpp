@@ -308,7 +308,7 @@ void gameOfLife::audioOut(float *output, int bufferSize, int nChannels) {
       
       for(int j = 0; j < polyNum; j ++ ) {
         ADSR[j].trigger(0, adsrEnv[0]);
-        currentTone[j] = currentAdditiveTone[j] = 0;
+        currentTone[j] = 0;
       }
       
       for (int k = 0; k < 7; k ++ ) {
@@ -322,12 +322,6 @@ void gameOfLife::audioOut(float *output, int bufferSize, int nChannels) {
             // ちょっと後で原因究明したいが、いったん変な値を汚く間引く
             currentX[(k * l) + l] = datas[k].x[l] > 0 && datas[k].x[l] < 2000 ? datas[k].x[l] : 0;
             currentY[(k * l) + l] = datas[k].y[l] > 0 && datas[k].y[l] < 2000 ? datas[k].y[l] : 0;
- 
-            if (addOscCOunter % 30 == 1) {
-              wave2 = 0;
-              currentAdditiveTone[(k * l) + l] = career;
-              addOscCOunter = 0;
-            }
           }
         }
       }
@@ -335,20 +329,32 @@ void gameOfLife::audioOut(float *output, int bufferSize, int nChannels) {
 //    float career = patTofreq(resData->mPattern.name);
       addOscCOunter ++;
       audioTick = false;
-
+    }
+    
+    if (addOscCOunter % 30 == 29) {
+      
+      cout << addOscCOunter <<endl;
+      wave2 = 0;
+      for (int i = 0; i < polyNum; i ++ ) {
+        currentAdditiveTone[i] = currentTone[i];
+      }
+      addOscCOunter = 0;
     }
     
     for(int m = 0; m < polyNum; m ++ ) {
       ADSRout = ADSR[m].line(6, adsrEnv);
       if (currentTone[m] != 0) {
         wave += oscbank[m].sinewave(currentTone[m]);
-        wave2 += addOsc[m].sinewave(currentAdditiveTone[m]) * 0.01;
-        
-        mymix.stereo(wave * ADSRout, outputs, (1.0 / (float)(currentX[m]) ) );
-//        mymix.stereo(wave2, outputs, 0.5);
+//        mymix.stereo(wave * ADSRout, outputs, (1.0 / (float)(currentX[m]) ) );
       }
+      
+      if (currentAdditiveTone[m] != 0) {
+        wave2 += addOsc[m].sinewave(currentAdditiveTone[m]) * 0.001;
+      }
+      
     }
     
+    mymix.stereo(wave2, outputs, 0.5);
     lAudio[i] = output[i * nChannels] = outputs[0];
     rAudio[i] = output[i * nChannels + 1] = outputs[1];
   }
