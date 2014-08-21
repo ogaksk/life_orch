@@ -331,12 +331,9 @@ void gameOfLife::audioOut(float *output, int bufferSize, int nChannels) {
       audioTick = false;
     }
     
-    if (addOscCOunter % 30 == 29) {
-      
-      cout << addOscCOunter <<endl;
-      wave2 = 0;
+    if (addOscCOunter % 43 == 42) {
       for (int i = 0; i < polyNum; i ++ ) {
-        currentAdditiveTone[i] = currentTone[i];
+        currentAdditiveTone[i] = currentTone[i] + (rand() % 10) ;
       }
       addOscCOunter = 0;
     }
@@ -344,8 +341,8 @@ void gameOfLife::audioOut(float *output, int bufferSize, int nChannels) {
     for(int m = 0; m < polyNum; m ++ ) {
       ADSRout = ADSR[m].line(6, adsrEnv);
       if (currentTone[m] != 0) {
-        wave += oscbank[m].sinewave(currentTone[m]);
-//        mymix.stereo(wave * ADSRout, outputs, (1.0 / (float)(currentX[m]) ) );
+        wave += oscbank[m].square(currentTone[m]);
+        mymix.stereo(wave * ADSRout, outputs, (1.0 / (float)(currentX[m]) ) );
       }
       
       if (currentAdditiveTone[m] != 0) {
@@ -354,9 +351,9 @@ void gameOfLife::audioOut(float *output, int bufferSize, int nChannels) {
       
     }
     
-    mymix.stereo(wave2, outputs, 0.5);
-    lAudio[i] = output[i * nChannels] = outputs[0];
-    rAudio[i] = output[i * nChannels + 1] = outputs[1];
+//    mymix.stereo(wave2, outputs, 0.5);
+    lAudio[i] = output[i * nChannels] = outputs[0] + wave2;
+    rAudio[i] = output[i * nChannels + 1] = outputs[1] + wave2;
   }
 }
 
