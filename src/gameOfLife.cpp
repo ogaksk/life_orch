@@ -90,8 +90,8 @@ void gameOfLife::update() {
   datas.push_back(death1->detection(grid, rows, cols));
   datas.push_back(death2->detection(grid, rows, cols));
   datas.push_back(deathRect->detection(grid, rows, cols));
-  
   if (ofGetFrameNum() % TICK_INTERVAL == 0 && active) {
+
     tick();
     audioTick = true;
   }
@@ -149,13 +149,14 @@ void gameOfLife::draw() {
 			}
 		}
 	}
+  
   /* このスコープでレスパターンをドローすると点滅しない */
-  drawingResPatterns(datas);
+
   
   if (ofGetFrameNum() % TICK_INTERVAL == 0 && active) {
-
-    ofEnableBlendMode(OF_BLENDMODE_ALPHA);
     
+    ofEnableBlendMode(OF_BLENDMODE_ALPHA);
+    drawingResPatterns(datas);
     /*レスデータはここでクリアする*/
     datas.clear();
   }
@@ -170,15 +171,15 @@ void gameOfLife::drawingResPatterns(vector<resPattern> &datas) {
     resData->x.size();
     if (resData->x.size() != 0) {
       for (int h=0; h < resData->x.size(); h++) {
-        for (int i=0; i< resData->mPattern.patternGrid[0]; i++) {
-          for (int j=0; j < resData->mPattern.patternGrid[1]; j++) {
-            if (resData->mPattern.pattern[resData->mPattern.patternGrid[0] * j + i ] == 1) {
+        for (int i=0; i< resData->mPattern.patternGrid[1]; i++) {
+          for (int j=0; j < resData->mPattern.patternGrid[0]; j++) {
+            if (resData->mPattern.pattern[resData->mPattern.patternGrid[1] * j + i ] == 1) {
               /*検出描画チェックログ よくつかう*/
 //              cout << resData->mPattern.name << endl;
               ofSetColor(resData->mPattern.color.r, resData->mPattern.color.g, resData->mPattern.color.b, 200);
               ofFill();
-//              myImage.ofImage_::draw((float)((i + resData->x.at(h)) * cellWidth) - cellWidth / 2, (float)((j + resData->y.at(h)) * cellHeight) - cellHeight / 2, cellWidth*3.0, cellHeight*3.0);
-              ofRect( (i + resData->x.at(h)) * cellWidth, (j + resData->y.at(h)) * cellHeight, cellWidth, cellHeight);
+              myImage.ofImage_::draw((float)((i + resData->x.at(h)) * cellWidth) - cellWidth / 2, (float)((j + resData->y.at(h)) * cellHeight) - cellHeight / 2, cellWidth*3.0, cellHeight*3.0);
+//              ofRect( (i + resData->x.at(h)) * cellWidth, (j + resData->y.at(h)) * cellHeight, cellWidth, cellHeight);
 //              ofNoFill();
             }
           }
@@ -235,8 +236,8 @@ void gameOfLife::patternMapping() {
   glider4 = new patternDetect("glider4", grid3x3, patGlider4, ofColor::cyan);
   line5 = new patternDetect("line5", grid1x7, pat3, ofColor::cyan);
   
-  death1 = new patternDetect("death1", grid3x4, patDeath2, ofColor::blue);
-  death2 = new patternDetect("death2", grid4x3, patDeath1, ofColor::blue);
+  death1 = new patternDetect("death1", grid4x3, patDeath1, ofColor::blue);
+  death2 = new patternDetect("death2", grid3x4, patDeath2, ofColor::blue);
   deathRect = new patternDetect("deathRect", grid4x4, pathDeathRect, ofColor::blue);
 }
 
