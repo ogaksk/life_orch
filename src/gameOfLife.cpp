@@ -28,6 +28,9 @@ patternDetect *glider2;
 patternDetect *glider3;
 patternDetect *glider4;
 patternDetect *line5;
+patternDetect *death1;
+patternDetect *death2;
+patternDetect *deathRect;
 
 vector<resPattern> datas;
 vector<resPattern>::iterator resData;
@@ -55,7 +58,6 @@ void gameOfLife::setup() {
   
   sender.setup(HOST, PORT);
   audioSetup();
-  
 }
 
 void gameOfLife::init(int width, int height, int cellSize) {
@@ -73,74 +75,50 @@ void gameOfLife::init(int width, int height, int cellSize) {
   
 	// set up grid
 	clear();
-    patternMapping();
+  patternMapping();
 }
 
 void gameOfLife::update() {
-    if (ofGetFrameNum() % TICK_INTERVAL == 0 && active) {
-      tick();
-      datas.push_back(blink1->detection(grid, rows, cols));
-      datas.push_back(blink2->detection(grid, rows, cols));
-      
-      datas.push_back(glider1->detection(grid, rows, cols));
-      datas.push_back(glider2->detection(grid, rows, cols));
-      datas.push_back(glider3->detection(grid, rows, cols));
-      datas.push_back(glider4->detection(grid, rows, cols));
-      
-      datas.push_back(line5->detection(grid, rows, cols));
-      audioTick = true;
-//      oscSending(datas);
-    }
+  datas.push_back(blink1->detection(grid, rows, cols));
+  datas.push_back(blink2->detection(grid, rows, cols));
+  datas.push_back(glider1->detection(grid, rows, cols));
+  datas.push_back(glider2->detection(grid, rows, cols));
+  datas.push_back(glider3->detection(grid, rows, cols));
+  datas.push_back(glider4->detection(grid, rows, cols));
+  datas.push_back(line5->detection(grid, rows, cols));
+  
+  datas.push_back(death1->detection(grid, rows, cols));
+  datas.push_back(death2->detection(grid, rows, cols));
+  datas.push_back(deathRect->detection(grid, rows, cols));
+  
+  if (ofGetFrameNum() % TICK_INTERVAL == 0 && active) {
+    tick();
+    audioTick = true;
+  }
 }
-
-/*今は参照渡し風に書いている　複数のインスタンスを渡してバグが生まれたら対応*/
-//void gameOfLife::oscSending(vector<resPattern> &datas) {
-//  for(resData = datas.begin(); resData != datas.end(); ++resData) {
-//    std::stringstream result_x, result_y;
-//    std::copy(&*resData->x.begin(), &*resData->x.end(), std::ostream_iterator<int>(result_x, ","));
-//    std::copy(&*resData->y.begin(), &*resData->y.end(), std::ostream_iterator<int>(result_y, ","));
-//    
-//    ofxOscMessage mx, my;
-//    string textName = "/";
-//    textName += resData->mPattern.name;
-//    textName += "/";
-//    string textX = textName + "x";
-//    string textY = textName + "y";
-//    
-//    mx.setAddress(textX);
-//    mx.addStringArg( result_x.str() );
-//    
-//    my.setAddress( textY );
-//    my.addStringArg( result_y.str() );
-//    
-//    //メッセージを送信
-//    sender.sendMessage( mx );
-//    sender.sendMessage( my );
-//  }
-//}
 
 
 void gameOfLife::tick() {
 	// get active neighbors for each cell
     
 	for (int i=0; i<cols; i++) {
-        for (int j=0; j<rows; j++) {
-            cell *thisCell = &grid[i][j];
-            thisCell->activeNeighbors = getNumActiveNeighbors(i, j);
-            bool currState = thisCell->currState;
-            int activeNeighbors = thisCell->activeNeighbors;
-            if (currState == true && activeNeighbors < 2) {
-                thisCell->nextState = false;
-            } else if (currState == true && activeNeighbors > 3) {
-                thisCell->nextState = false;
-            } else if (currState == true && activeNeighbors > 1 && activeNeighbors < 4) {
-                thisCell->nextState = true;
-                thisCell->color = ofColor::white;
-            } else if (currState == false && activeNeighbors == 3) {
-                thisCell->nextState = true;
-                thisCell->color = highlight ? ofColor::green : ofColor::white;
-            }
-        }
+    for (int j=0; j<rows; j++) {
+      cell *thisCell = &grid[i][j];
+      thisCell->activeNeighbors = getNumActiveNeighbors(i, j);
+      bool currState = thisCell->currState;
+      int activeNeighbors = thisCell->activeNeighbors;
+      if (currState == true && activeNeighbors < 2) {
+        thisCell->nextState = false;
+      } else if (currState == true && activeNeighbors > 3) {
+        thisCell->nextState = false;
+      } else if (currState == true && activeNeighbors > 1 && activeNeighbors < 4) {
+        thisCell->nextState = true;
+        thisCell->color = ofColor::white;
+      } else if (currState == false && activeNeighbors == 3) {
+        thisCell->nextState = true;
+        thisCell->color = highlight ? ofColor::green : ofColor::white;
+      }
+    }
 	}
 	makeNextStateCurrent();
 }
@@ -171,11 +149,11 @@ void gameOfLife::draw() {
 			}
 		}
 	}
-
-
+  /* このスコープでレスパターンをドローすると点滅しない */
+  drawingResPatterns(datas);
+  
   if (ofGetFrameNum() % TICK_INTERVAL == 0 && active) {
 
-    drawingResPatterns(datas);
     ofEnableBlendMode(OF_BLENDMODE_ALPHA);
     
     /*レスデータはここでクリアする*/
@@ -195,14 +173,12 @@ void gameOfLife::drawingResPatterns(vector<resPattern> &datas) {
         for (int i=0; i< resData->mPattern.patternGrid[0]; i++) {
           for (int j=0; j < resData->mPattern.patternGrid[1]; j++) {
             if (resData->mPattern.pattern[resData->mPattern.patternGrid[0] * j + i ] == 1) {
-              
               /*検出描画チェックログ よくつかう*/
 //              cout << resData->mPattern.name << endl;
-              
               ofSetColor(resData->mPattern.color.r, resData->mPattern.color.g, resData->mPattern.color.b, 200);
               ofFill();
-              myImage.ofImage_::draw((float)((i + resData->x.at(h)) * cellWidth) - cellWidth / 2, (float)((j + resData->y.at(h)) * cellHeight) - cellHeight / 2, cellWidth*3.0, cellHeight*3.0);
-//              ofRect( (i + resData->x.at(h)) * cellWidth, (j + resData->y.at(h)) * cellHeight, cellWidth, cellHeight);
+//              myImage.ofImage_::draw((float)((i + resData->x.at(h)) * cellWidth) - cellWidth / 2, (float)((j + resData->y.at(h)) * cellHeight) - cellHeight / 2, cellWidth*3.0, cellHeight*3.0);
+              ofRect( (i + resData->x.at(h)) * cellWidth, (j + resData->y.at(h)) * cellHeight, cellWidth, cellHeight);
 //              ofNoFill();
             }
           }
@@ -230,27 +206,38 @@ void gameOfLife::clear() {
  * 検出パターンを初期化するメソッド
 *****************************/
 void gameOfLife::patternMapping() {
-    
-    int grid1[] = {1, 7};
-    int grid2[] = {3, 3};
-    int pat1[] = {0, 0, 0, 1, 1, 1, 0, 0, 0};
-    int pat2[] = {0, 1, 0, 0, 1, 0, 0, 1, 0};
-    int pat3[] = {0, 1, 1, 1, 1, 1, 0};
+  int grid1x7[] = {1, 7};
+  int grid3x3[] = {3, 3};
+  int grid3x4[] = {3, 4};
+  int grid4x3[] = {4, 3};
+  int grid2x2[] = {2, 2};
+  int grid4x4[] = {4, 4};
   
-    int patGlider1[] = {0, 1, 0, 0, 0, 1, 1, 1, 1};
-    int patGlider2[] = {0, 0, 1, 1, 0, 1, 0, 1, 1};
-    int patGlider3[] = {1, 0, 0, 0, 1, 1, 1, 1, 0};
-    int patGlider4[] = {0, 0, 1, 1, 1, 0, 0, 1, 1};
   
-    blink1 = new patternDetect("blink1", grid2, pat1, ofColor::cyan);
-    blink2 = new patternDetect("blink2", grid2, pat2, ofColor::cyan);
+  int pat1[] = {0, 0, 0, 1, 1, 1, 0, 0, 0};
+  int pat2[] = {0, 1, 0, 0, 1, 0, 0, 1, 0};
+  int pat3[] = {0, 1, 1, 1, 1, 1, 0};
   
-    glider1 = new patternDetect("glider1", grid2, patGlider1, ofColor::cyan);
-    glider2 = new patternDetect("glider2", grid2, patGlider2, ofColor::cyan);
-    glider3 = new patternDetect("glider3", grid2, patGlider3, ofColor::cyan);
-    glider4 = new patternDetect("glider4", grid2, patGlider4, ofColor::cyan);
+  int patDeath1[] = {0, 1, 0, 1, 0, 1, 1, 0, 1, 0, 1, 0};
+  int patDeath2[] = {0, 1, 1, 0, 1, 0, 0, 1, 0, 1, 1, 0};
+  int pathDeathRect[] = {0, 0, 0, 0, 0, 1, 1, 0, 0, 1, 1, 0, 0, 0, 0, 0};
   
-    line5 = new patternDetect("line5", grid2, pat3, ofColor::cyan);
+  int patGlider1[] = {0, 1, 0, 0, 0, 1, 1, 1, 1};
+  int patGlider2[] = {0, 0, 1, 1, 0, 1, 0, 1, 1};
+  int patGlider3[] = {1, 0, 0, 0, 1, 1, 1, 1, 0};
+  int patGlider4[] = {0, 0, 1, 1, 1, 0, 0, 1, 1};
+  
+  blink1 = new patternDetect("blink1", grid3x3, pat1, ofColor::cyan);
+  blink2 = new patternDetect("blink2", grid3x3, pat2, ofColor::cyan);
+  glider1 = new patternDetect("glider1", grid3x3, patGlider1, ofColor::cyan);
+  glider2 = new patternDetect("glider2", grid3x3, patGlider2, ofColor::cyan);
+  glider3 = new patternDetect("glider3", grid3x3, patGlider3, ofColor::cyan);
+  glider4 = new patternDetect("glider4", grid3x3, patGlider4, ofColor::cyan);
+  line5 = new patternDetect("line5", grid1x7, pat3, ofColor::cyan);
+  
+  death1 = new patternDetect("death1", grid3x4, patDeath2, ofColor::blue);
+  death2 = new patternDetect("death2", grid4x3, patDeath1, ofColor::blue);
+  deathRect = new patternDetect("deathRect", grid4x4, pathDeathRect, ofColor::blue);
 }
 
 
@@ -259,7 +246,6 @@ void gameOfLife::patternMapping() {
  *****************************/
 
 void gameOfLife::audioSetup() {
-  
   sampleRate 			= 44100; /* Sampling Rate */
 	initialBufferSize	= 512;	/* Buffer Size. you have to fill this buffer with sound*/
 	
@@ -270,17 +256,14 @@ void gameOfLife::audioSetup() {
   
   /*frequencyのマッピング*/
   freqMap["blink1"] = 493.883301;
-  freqMap["blink2"] = 329.627563;
-  
-  freqMap["glider1"] = 277.182617;
+  freqMap["blink2"] = 440.0;
+  freqMap["glider1"] = 415.304688;
   freqMap["glider2"] = 369.994415;
-  freqMap["glider3"] = 415.304688;
-  freqMap["glider4"] = 440.0;
-  
+  freqMap["glider3"] = 329.627563;
+  freqMap["glider4"] = 277.182617;
   freqMap["line5"] = 554.365234;
   
   mode = 0;
-
 }
 
 void gameOfLife::audioOut(float *output, int bufferSize, int nChannels) {
@@ -290,22 +273,8 @@ void gameOfLife::audioOut(float *output, int bufferSize, int nChannels) {
   int currentY[polyNum]; // 発音数に応じて得れる要素数を制限する
   
   for (int i = 0; i < bufferSize; i++) {
-//    for(resData = datas.begin(); resData != datas.end(); ++resData) {
-//      float career = patTofreq(resData->mPattern.name);
-//      for(int i = 0; i < resData->x.size(); i++) {
-//        wave = osc.sinewave(career) * resData->y[i] * 0.01;
-//        float pan = 1 / resData->x[i];
-//        mymix.stereo(wave, outputs, pan);
-//      }
-
-//
-//      lAudio[i] = output[i * nChannels] = outputs[0];
-//      rAudio[i] = output[i * nChannels + 1] = outputs[1];
-//    }
-
     if (audioTick == true) {
       wave = 0;
-      
       for(int j = 0; j < polyNum; j ++ ) {
         ADSR[j].trigger(0, adsrEnv[0]);
         currentTone[j] = 0;
